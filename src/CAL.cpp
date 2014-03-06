@@ -12,7 +12,10 @@ using namespace std;
 int main() {
 	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 	cout <<"teste";
+<<<<<<< HEAD
 	cout << "branch";
 	cout << "teste2";
+=======
+>>>>>>> parent of 364bcec... branch
 	return 0;
 }
