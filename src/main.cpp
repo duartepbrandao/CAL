@@ -1,16 +1,17 @@
 #include <iostream>
 #include <stdlib.h>
-#include "File Reader.h"
+#include "ThesisSolver.h"
 #include <vector>
 using namespace std;
 
 int main (){
-	vector <Entity*> students;
-	vector <Entity*> supervisors;
-	vector <Entity*> dissertations;
 	
+	ThesisSolver* solution =  new ThesisSolver();
+	solution->readFile();
 
-	fileReader(students,supervisors,dissertations);
+	cout<<solution->students.size()<<" nome "<<solution->students[0]->getName();
+
+
 	cout<<"reading done!"<<endl;
 	system("pause");
 return 1;
