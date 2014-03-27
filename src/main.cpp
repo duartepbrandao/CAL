@@ -12,5 +12,5 @@ int main (){
 
 	fileReader(students,supervisors,dissertations);
 
-return 1;
+	return 1;
 }
