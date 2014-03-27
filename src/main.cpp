@@ -11,6 +11,7 @@ int main (){
 	
 
 	fileReader(students,supervisors,dissertations);
-
-	return 1;
+	cout<<"reading done!"<<endl;
+	system("pause");
+return 1;
 }

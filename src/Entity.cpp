@@ -1,8 +1,12 @@
 #include "Entity.h"
 
+
+int Entity::id=1;
+
 Entity::Entity()
 {
-	//ID
+	thisID = id;
+	id++;
 	paired=false;
 }
 
@@ -54,6 +58,11 @@ void Entity::addToPreferences( Entity* preference )
 Entity::~Entity()
 {
 
+}
+
+void Entity::addToPreferencesID( int id )
+{
+	preferencesID.push_back(id);
 }
 
 

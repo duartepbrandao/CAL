@@ -6,9 +6,11 @@
 class Entity {
 private:
 	std::string name;
-	int id; //will this be needed?
+	static int id; //starts at 1
+	int thisID;
 	Entity* pair;
 	bool paired;
+	std::vector <int> preferencesID;
 	std::vector <Entity*> preferences;
 
 public:
@@ -23,6 +25,7 @@ public:
 	std::vector <Entity*> getPreferences();
 
 	//setters()
+	void addToPreferencesID(int id);
 	void setName(std::string name);
 	void setPair(Entity* entety);
 	void setPaired(bool paired);
