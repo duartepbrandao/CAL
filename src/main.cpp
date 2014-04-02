@@ -5,14 +5,13 @@
 using namespace std;
 
 int main (){
-	
-	ThesisSolver* solution =  new ThesisSolver();
+	ThesisSolver* solution = new ThesisSolver();
 	solution->readFile();
+	solution->menu();
 
-	cout<<solution->students.size()<<" nome "<<solution->students[0]->getName();
+	cout<<"\nreading done!"<<endl;
 
-
-	cout<<"reading done!"<<endl;
+	//cout<<solution->getStudents().size()<<" nome "<<solution->getStudents()[0]->getName();
 	//system("pause");
 return 1;
 }

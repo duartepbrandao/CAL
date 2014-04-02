@@ -15,20 +15,26 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <iomanip>
+#include <climits>
 
 using namespace std;
 
 class ThesisSolver {
 private:
 
-	std::vector<Entity*> supervisors;
-	std::vector<Entity*> dissertations;
+	vector<Entity*> supervisors;
+	vector<Entity*> dissertations;
+	vector<Entity*> students;
 
 public:
-	std::vector<Entity*> students;
+	vector<Entity*> &getStudents();
+	void setStudents(const vector<Entity*> &vec);
+
 	ThesisSolver();
 	void readFile();
 	void computeSolution();
+	void menu();
 };
 
 #endif /* THESISSOLVER_H_ */
