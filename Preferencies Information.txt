@@ -1,0 +1,20 @@
+Students Information
+
+Name	preferencies
+james	5,4,3,6
+Rodriguez	99,543
+---------------------
+
+
+Projects Information
+
+Name	preferencies
+Arquitetura	3456456,23
+---------------------
+
+
+Supervisors Information
+
+Name	preferencies
+james	5,4,3,6
+---------------------

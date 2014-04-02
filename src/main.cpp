@@ -13,6 +13,6 @@ int main (){
 
 
 	cout<<"reading done!"<<endl;
-	system("pause");
+	//system("pause");
 return 1;
 }

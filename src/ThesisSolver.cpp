@@ -6,57 +6,79 @@
  */
 #include "ThesisSolver.h"
 
-bool ThesisSolver::readFile() {
-	bool result = true;
-	std::ifstream ins;
-	std::string line;
-	int phase = 1;
-	ins.open("db.txt");
-	int counter = 0;
+void ThesisSolver::readFile() {
 
-	if (ins.is_open()) {
-		while (getline(ins, line)) {
-			std::cout << "read: " << counter << line << std::endl;
-			counter++;
-			getline(ins, line);
-			std::cout << "read: " << counter << line << std::endl;
-			counter++;
-			while (!line.compare("/")) {
-				std::cout << "read: " << counter << line << std::endl;
-				counter++;
-				Entity* temp = new Entity();
-				getline(ins, line);
-				std::cout << "read: " << counter << line << std::endl;
-				counter++;
-				temp->setName(line);
-				getline(ins, line);
-				std::cout << "read: " << counter << line << std::endl;
-				counter++;
-				do {
-					char * str = new char[line.length() + 1];
-					strcpy(str, line.c_str());
-					int id;
-					id = atoi(str);
-					temp->addToPreferencesID(id);
-					getline(ins, line);
-					std::cout << "read: " << counter << line << std::endl;
-					counter++;
-					if ((line.compare("*") || line.compare("/"))) { //std::cout << phase;
-						if (phase == 1) {
-							std::cout <<"added" << temp->getName()<<std::endl;
-							students.push_back(temp);
-						} else if (phase == 2) {
-							dissertations.push_back(temp);
-						} else {
-							supervisors.push_back(temp);
-						}
-					}
-				} while (!(line.compare("*") || line.compare("/")));
-				phase++;
-			}
+	ifstream readFile; //read the content of a file
+	string content; // temporary information string
+
+	//start reading
+	readFile.open("Preferencies Information.txt");
+
+	if(readFile.fail()){
+		readFile.close();
+		ofstream fileCreate("Preferencies Information.txt");
+		fileCreate <<"Students Information\n\n"
+				<<"Name\t"<<"preferencies\n"
+				<<"---------------------\n\n\n"
+				<<"Projects Information\n\n"
+				<<"Name\t"<<"preferencies\n"
+				<<"---------------------\n\n\n"
+				<<"Supervisors Information\n\n"
+				<<"Name\t"<<"preferencies\n"
+				<<"---------------------\n";
+		fileCreate.close();
+		readFile.open("Preferencies Information.txt");
+	}
+
+	int phase = 1; //lecture phase: 1-Students, 2-Dissertations, 3-Supervisors
+
+	while (true){
+
+		for(int i=0; i<4 ; i++){
+			getline(readFile, content);
 		}
-	} else
-		return result;
+
+		while (content!="---------------------") {
+
+			Entity* temp = new Entity();
+
+			string name = content.substr(0,content.find('\t'));
+			temp->setName(name);
+
+			content.erase(0,content.find('\t')+1);
+
+			while(content.size()!=0){
+				int pos;
+
+				if(content.find_first_of(',')<100000)
+					pos=content.find(',');
+				else pos=content.size();
+
+				int pref = atoi(content.substr(0,pos).c_str());
+				temp->addToPreferencesID(pref);
+
+				content.erase(0,pos+1);
+			}
+
+			switch (phase){
+			case 1:
+				students.push_back(temp);
+				break;
+			case 2:
+				dissertations.push_back(temp);
+				break;
+			default: //case 3:
+				supervisors.push_back(temp);
+				break;
+			}
+			if(phase==3) break;
+			getline(readFile, content);
+		}
+		if(phase==3) break;
+		phase++;
+		getline(readFile, content);
+		getline(readFile, content);
+	}
 }
 
 ThesisSolver::ThesisSolver() {

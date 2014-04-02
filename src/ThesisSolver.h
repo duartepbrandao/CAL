@@ -16,6 +16,8 @@
 #include <string>
 #include <cstdlib>
 
+using namespace std;
+
 class ThesisSolver {
 private:
 
@@ -25,7 +27,7 @@ private:
 public:
 	std::vector<Entity*> students;
 	ThesisSolver();
-	bool readFile();
+	void readFile();
 	void computeSolution();
 };
 
