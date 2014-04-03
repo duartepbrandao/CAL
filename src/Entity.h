@@ -1,10 +1,14 @@
+#ifndef ENTITY_H_
+#define ENTITY_H_
+
+
 #include <iostream>
 #include <string.h>
 #include <vector>
 
 
 class Entity {
-private:
+protected:
 	std::string name;
 	static int id; //starts at 1
 	int thisID;
@@ -31,3 +35,6 @@ public:
 	void setPaired(bool paired);
 	void addToPreferences(Entity* preference);
 };
+
+
+#endif /* ENTITY_H_ */

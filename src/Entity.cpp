@@ -8,6 +8,7 @@ Entity::Entity()
 	thisID = id;
 	id++;
 	paired=false;
+	pair = NULL;
 }
 
 std::string Entity::getName()

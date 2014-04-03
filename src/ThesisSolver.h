@@ -17,13 +17,14 @@
 #include <cstdlib>
 #include <iomanip>
 #include <climits>
+#include "Supervisor.h"
 
 using namespace std;
 
 class ThesisSolver {
 private:
 
-	vector<Entity*> supervisors;
+	vector<Supervisor*> supervisors;
 	vector<Entity*> dissertations;
 	vector<Entity*> students;
 
