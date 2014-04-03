@@ -6,7 +6,6 @@
  */
 #include "ThesisSolver.h"
 
-
 void ThesisSolver::readFile() {
 
 	ifstream readFile; //read the content of a file
@@ -126,7 +125,13 @@ ThesisSolver::ThesisSolver() {
 
 }
 
-void ThesisSolver::computeSolution() {
-	// TODO: Implement the solver
+void ThesisSolver::solver1() {
+
 }
 
+bool ThesisSolver::checkEnd() {
+	for (std::vector<Entity*> it = students.begin(); it != students.end();
+			it++) {
+
+	}
+}

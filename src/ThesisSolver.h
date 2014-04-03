@@ -34,8 +34,9 @@ public:
 
 	ThesisSolver();
 	void readFile();
-	void computeSolution();
 	void menu();
+	void solver1();
+	bool checkEnd();
 };
 
 #endif /* THESISSOLVER_H_ */
