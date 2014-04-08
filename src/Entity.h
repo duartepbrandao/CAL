@@ -6,6 +6,8 @@
 #include <string.h>
 #include <vector>
 
+using namespace std;
+
 
 class Entity {
 protected:
@@ -27,6 +29,7 @@ public:
 	Entity* getPair();
 	bool isPaired();
 	std::vector <Entity*> getPreferences();
+	std::vector <int> getPreferencesID();
 
 	//setters()
 	void addToPreferencesID(int id);

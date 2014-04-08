@@ -23,10 +23,9 @@ using namespace std;
 
 class ThesisSolver {
 private:
-
-	vector<Supervisor*> supervisors;
-	vector<Entity*> dissertations;
 	vector<Entity*> students;
+	vector<Entity*> dissertations;
+	vector<Supervisor*> supervisors;
 
 public:
 	vector<Entity*> &getStudents();
@@ -34,9 +33,10 @@ public:
 
 	ThesisSolver();
 	void readFile();
+	void saveFile();
 	void menu();
 	void solver1();
-	bool checkEnd();
+	void checkEnd();
 };
 
 #endif /* THESISSOLVER_H_ */

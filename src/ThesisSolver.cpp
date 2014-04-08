@@ -37,27 +37,26 @@ void ThesisSolver::readFile() {
 		while (content != "---------------------") {
 			Supervisor* temp2 = new Supervisor();
 			Entity* temp = new Entity();
+
 			string name = content.substr(0, content.find('\t'));
-			if (phase == 3) {
+			if (phase == 3)
 				temp2->setName(name);
-			} else {
-				temp->setName(name);
-			}
+			else temp->setName(name);
+
 			content.erase(0, content.find('\t') + 1);
 
 			while (content.size() != 0) {
 				int pos;
 
-				if (content.find_first_of(',') < INT_MAX)
+				if (content.find_first_of(',') < INT_MAX) //encontrou a virgula
 					pos = content.find(',');
-				else
-					pos = content.size();
+				else pos = content.size(); //nao encontra a virgula, apenas existe mais uma preferencia
+
 				int pref = atoi(content.substr(0, pos).c_str());
-				if (phase == 3) {
+				if (phase == 3)
 					temp2->addToPreferencesID(pref);
-				} else {
-					temp->addToPreferencesID(pref);
-				}
+				else temp->addToPreferencesID(pref);
+
 				content.erase(0, pos + 1);
 			}
 
@@ -72,17 +71,36 @@ void ThesisSolver::readFile() {
 				supervisors.push_back(temp2);
 				break;
 			}
-			if (phase == 3)
-				break;
+			if (phase == 3) break;
 			getline(readFile, content);
 		}
-		if (phase == 3)
-			break;
+		if (phase == 3) break;
 		phase++;
 		getline(readFile, content);
 		getline(readFile, content);
 	}
 }
+
+/*void ThesisSolver::saveFile() {
+	ofstream fileSave("Preferencies Information.txt");
+
+	fileSave << "Students Information\n\n" << "Name\t" << "preferencies\n";
+
+	for(vector<Entity*>::iterator it = students.begin(); it!=students.end(); it++){
+		fileSave << (*it)->getName() << '\t';
+		for(vector<int>::iterator it2 = (*it)->getPreferencesID())
+	}
+
+	fileSave << "---------------------\n\n\n" << "Projects Information\n\n" << "Name\t" << "preferencies\n";
+
+	fileSave << "---------------------\n\n\n" << "Supervisors Information\n\n" << "Name\t" << "preferencies\n";
+
+	fileSave << "---------------------\n";
+
+
+
+	fileSave.close();
+}*/
 
 vector<Entity*> & ThesisSolver::getStudents() {
 	return students;
@@ -129,9 +147,8 @@ void ThesisSolver::solver1() {
 
 }
 
-bool ThesisSolver::checkEnd() {
-	for (std::vector<Entity*> it = students.begin(); it != students.end();
-			it++) {
+void ThesisSolver::checkEnd() {
+	for (vector<Entity*>::iterator it = students.begin(); it != students.end(); it++) {
 
 	}
 }

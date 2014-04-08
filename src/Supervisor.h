@@ -10,6 +10,8 @@
 #include "Entity.h"
 #include <iostream>
 
+using namespace std;
+
 class Supervisor: public Entity {
 	std::vector<Entity*> supervisoes;
 public:

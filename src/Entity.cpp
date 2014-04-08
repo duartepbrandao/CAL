@@ -36,6 +36,11 @@ std::vector <Entity*> Entity::getPreferences()
 	return preferences;
 }
 
+std::vector <int> Entity::getPreferencesID()
+{
+	return preferencesID;
+}
+
 void Entity::setName( std::string name )
 {
 	this->name=name;
