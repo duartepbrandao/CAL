@@ -116,27 +116,30 @@ void ThesisSolver::menu() {
 	cout << "\t\t\t\t\t" << "==" << "Organizador de Dissertações" << "=="
 			<< "\n";
 	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
-	cout << "\t\t\t\t\t" << "1.Mostrar Informação Atual\n";
-	cout << "\t\t\t\t\t" << "2.Adicionar Estudantes\n";
-	cout << "\t\t\t\t\t" << "3.Adicionar Projetos\n";
-	cout << "\t\t\t\t\t" << "4.Adicionar Professor\n";
-	cout << "\t\t\t\t\t" << "5.Guardar Informação Alterada\n";
-	cout << "\t\t\t\t\t" << "6.Creditos\n";
+	cout << "\t\t\t\t\t" << "1.Gestao de Alunos\n";
+	cout << "\t\t\t\t\t" << "2.Gestao de Dissertacoes\n";
+	cout << "\t\t\t\t\t" << "3.Gestao de Supervisores\n";
+	cout << "\t\t\t\t\t" << "4.Atribuicao de Alunos a Dissertacoes\n";
+	cout << "\t\t\t\t\t" << "5.Atribuicao de Supervisores a Dissertacoes\n";
+	cout << "\t\t\t\t\t" << "6.Visualizacao do Grafo.\n";
 	cout << "\t\t\t\t\t" << "7.Quit\n\n\n";
 
 	//Recebe o input de escolha
 	string choice = "";
 
 	while (true) {
-		cout << "Resposta: ";
+		cout << "Indique a opcao desejada: ";
 		getline(cin, choice);
 		if (choice.length() == 1
 				&& (choice == "1" || choice == "2" || choice == "3"
 						|| choice == "4" || choice == "5" || choice == "6"
 						|| choice == "7"))
+
 			break;
 		cout << "Opção invalido, insira uma opção novamente." << endl;
 	}
+
+
 }
 
 ThesisSolver::ThesisSolver() {
@@ -152,3 +155,32 @@ void ThesisSolver::checkEnd() {
 
 	}
 }
+
+void ThesisSolver::gestaoAlunos(){
+		cout << endl;
+		cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+		cout << "\t\t\t\t\t" << "==" << "Gestao de Alunos" << "=="
+				<< "\n";
+		cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+		cout << "\t\t\t\t\t" << "1.Adiciona Aluno\n";
+		cout << "\t\t\t\t\t" << "2.Edita Aluno\n";
+		cout << "\t\t\t\t\t" << "3.Remove Aluno\n";
+		cout << "\t\t\t\t\t" << "4.Voltar ao MenuPrincipal\n";
+		cout << "\t\t\t\t\t" << "5.Quit\n\n\n";
+}
+
+void ThesisSolver::gestaoDissertacoes(){
+		cout << endl;
+		cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+		cout << "\t\t\t\t\t" << "==" << "Gestao de Dissertacoes" << "=="
+				<< "\n";
+		cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+		cout << "\t\t\t\t\t" << "1.Adiciona Dissertacao\n";
+		cout << "\t\t\t\t\t" << "2.Edita Dissertacao\n";
+		cout << "\t\t\t\t\t" << "3.Remove Dissertacao\n";
+		cout << "\t\t\t\t\t" << "4.Voltar ao MenuPrincipal\n";
+		cout << "\t\t\t\t\t" << "5.Quit\n\n\n";
+
+}
+
+void gestaoSupervisores();

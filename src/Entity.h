@@ -11,25 +11,25 @@ using namespace std;
 
 class Entity {
 protected:
-	std::string name;
+	string name;
 	static int id; //starts at 1
 	int thisID;
 	Entity* pair;
 	bool paired;
-	std::vector <int> preferencesID;
-	std::vector <Entity*> preferences;
+	vector <int> preferencesID;
+	vector <Entity*> preferences;
 
 public:
 	Entity();
 	~Entity();
 
 	//getters()
-	std::string getName();
+	string getName();
 	int getID();
 	Entity* getPair();
 	bool isPaired();
-	std::vector <Entity*> getPreferences();
-	std::vector <int> getPreferencesID();
+	vector <Entity*> getPreferences();
+	vector <int> getPreferencesID();
 
 	//setters()
 	void addToPreferencesID(int id);

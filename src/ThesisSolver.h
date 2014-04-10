@@ -25,7 +25,7 @@ class ThesisSolver {
 private:
 	vector<Entity*> students;
 	vector<Entity*> dissertations;
-	vector<Supervisor*> supervisors;
+	vector<Supervisor *> supervisors;
 
 public:
 	vector<Entity*> &getStudents();
@@ -37,6 +37,9 @@ public:
 	void menu();
 	void solver1();
 	void checkEnd();
+	void gestaoAlunos();
+	void gestaoDissertacoes();
+	void gestaoSupervisores();
 };
 
 #endif /* THESISSOLVER_H_ */
