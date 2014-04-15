@@ -81,26 +81,43 @@ void ThesisSolver::readFile() {
 	}
 }
 
-/*void ThesisSolver::saveFile() {
+void ThesisSolver::saveFile() {
 	ofstream fileSave("Preferencies Information.txt");
 
 	fileSave << "Students Information\n\n" << "Name\t" << "preferencies\n";
 
 	for(vector<Entity*>::iterator it = students.begin(); it!=students.end(); it++){
 		fileSave << (*it)->getName() << '\t';
-		for(vector<int>::iterator it2 = (*it)->getPreferencesID())
+		for(vector<int>::iterator it2 = (*it)->getPreferencesID().begin(); it2!=(*it)->getPreferencesID().begin(); it2++){
+			fileSave << (*it2) << ",";
+		}
+		fileSave << endl;
 	}
 
 	fileSave << "---------------------\n\n\n" << "Projects Information\n\n" << "Name\t" << "preferencies\n";
 
+	for(vector<Entity*>::iterator it = dissertations.begin(); it!=dissertations.end(); it++){
+		fileSave << (*it)->getName() << '\t';
+		for(vector<int>::iterator it2 = (*it)->getPreferencesID().begin(); it2!=(*it)->getPreferencesID().begin(); it2++){
+			fileSave << (*it2) << ",";
+		}
+		fileSave << endl;
+	}
+
 	fileSave << "---------------------\n\n\n" << "Supervisors Information\n\n" << "Name\t" << "preferencies\n";
+
+	for(vector<Supervisor*>::iterator it = supervisors.begin(); it!=supervisors.end(); it++){
+		fileSave << (*it)->getName() << '\t';
+		for(vector<int>::iterator it2 = (*it)->getPreferencesID().begin(); it2!=(*it)->getPreferencesID().begin(); it2++){
+			fileSave << (*it2) << ",";
+		}
+		fileSave << endl;
+	}
 
 	fileSave << "---------------------\n";
 
-
-
 	fileSave.close();
-}*/
+}
 
 vector<Entity*> & ThesisSolver::getStudents() {
 	return students;
@@ -111,35 +128,68 @@ void ThesisSolver::setStudents(const vector<Entity*> &vec) {
 }
 
 void ThesisSolver::menu() {
-	cout << endl;
-	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
-	cout << "\t\t\t\t\t" << "==" << "Organizador de Dissertações" << "=="
-			<< "\n";
-	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
-	cout << "\t\t\t\t\t" << "1.Gestao de Alunos\n";
-	cout << "\t\t\t\t\t" << "2.Gestao de Dissertacoes\n";
-	cout << "\t\t\t\t\t" << "3.Gestao de Supervisores\n";
-	cout << "\t\t\t\t\t" << "4.Atribuicao de Alunos a Dissertacoes\n";
-	cout << "\t\t\t\t\t" << "5.Atribuicao de Supervisores a Dissertacoes\n";
-	cout << "\t\t\t\t\t" << "6.Visualizacao do Grafo.\n";
-	cout << "\t\t\t\t\t" << "7.Quit\n\n\n";
+	bool display=true;
+	string choice = ""; //Recebe o input de escolha
 
-	//Recebe o input de escolha
-	string choice = "";
+	while(true){
 
-	while (true) {
-		cout << "Indique a opcao desejada: ";
-		getline(cin, choice);
-		if (choice.length() == 1
-				&& (choice == "1" || choice == "2" || choice == "3"
-						|| choice == "4" || choice == "5" || choice == "6"
-						|| choice == "7"))
+		while (true) {
+			if(display){
+				cout << endl;
+				cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+				cout << "\t\t\t\t\t" << "==" << "Organizador de Dissertações" << "=="
+						<< "\n";
+				cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+				cout << "\t\t\t\t\t" << "1.Gestao de Alunos\n";
+				cout << "\t\t\t\t\t" << "2.Gestao de Dissertacoes\n";
+				cout << "\t\t\t\t\t" << "3.Gestao de Supervisores\n";
+				cout << "\t\t\t\t\t" << "4.Atribuicao de Alunos a Dissertacoes\n";
+				cout << "\t\t\t\t\t" << "5.Atribuicao de Supervisores a Dissertacoes\n";
+				cout << "\t\t\t\t\t" << "6.Visualizacao do Grafo.\n";
+				cout << "\t\t\t\t\t" << "7.Quit\n\n\n";
+				display=false;
+			}
+			cout << "Indique a opcao desejada: ";
+			getline(cin, choice);
+			if (choice.length() == 1
+					&& (choice == "1" || choice == "2" || choice == "3"
+							|| choice == "4" || choice == "5" || choice == "6"
+									|| choice == "7"))
+				break;
+			cout << "Opção invalido, insira uma opção novamente." << endl;
+		}
 
+		int option = atoi(choice.c_str());
+
+		switch (option){
+		case 1:
+			gestaoAlunos();
+			display=true;
 			break;
-		cout << "Opção invalido, insira uma opção novamente." << endl;
+		case 2:
+			gestaoDissertacoes();
+			display=true;
+			break;
+		case 3:
+			gestaoSupervisores();
+			display=true;
+			break;
+		case 4:
+			cout<<"por implementar"<<endl;
+			display=true;
+			break;
+		case 5:
+			cout<<"por implementar"<<endl;
+			display=true;
+			break;
+		case 6:
+			cout<<"por implementar"<<endl;
+			display=true;
+			break;
+		default:
+			return;
+		}
 	}
-
-
 }
 
 ThesisSolver::ThesisSolver() {
@@ -157,30 +207,134 @@ void ThesisSolver::checkEnd() {
 }
 
 void ThesisSolver::gestaoAlunos(){
-		cout << endl;
-		cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
-		cout << "\t\t\t\t\t" << "==" << "Gestao de Alunos" << "=="
-				<< "\n";
-		cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
-		cout << "\t\t\t\t\t" << "1.Adiciona Aluno\n";
-		cout << "\t\t\t\t\t" << "2.Edita Aluno\n";
-		cout << "\t\t\t\t\t" << "3.Remove Aluno\n";
-		cout << "\t\t\t\t\t" << "4.Voltar ao MenuPrincipal\n";
-		cout << "\t\t\t\t\t" << "5.Quit\n\n\n";
+	cout << endl;
+	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+	cout << "\t\t\t\t\t" << "==" << "Gestao de Alunos" << "=="
+			<< "\n";
+	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+	cout << "\t\t\t\t\t" << "1.Adiciona Aluno\n";
+	cout << "\t\t\t\t\t" << "2.Edita Aluno\n";
+	cout << "\t\t\t\t\t" << "3.Remove Aluno\n";
+	cout << "\t\t\t\t\t" << "4.Voltar ao MenuPrincipal\n";
+
+	//Recebe o input de escolha
+	string choice = "";
+
+	while(true){
+
+		while (true) {
+			cout << "Indique a opcao desejada: ";
+			getline(cin, choice);
+			if (choice.length() == 1
+					&& (choice == "1" || choice == "2" || choice == "3"
+							|| choice == "4"))
+				break;
+			cout << "Opção invalido, insira uma opção novamente." << endl;
+		}
+
+		int option = atoi(choice.c_str());
+
+		switch (option){
+		case 1:
+			cout<<"por implementar\n";
+			system("cls");
+			break;
+		case 2:
+			cout<<"por implementar\n";
+			break;
+		case 3:
+			cout<<"por implementar\n";
+			break;
+		default:
+			return;
+		}
+	}
 }
 
 void ThesisSolver::gestaoDissertacoes(){
-		cout << endl;
-		cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
-		cout << "\t\t\t\t\t" << "==" << "Gestao de Dissertacoes" << "=="
-				<< "\n";
-		cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
-		cout << "\t\t\t\t\t" << "1.Adiciona Dissertacao\n";
-		cout << "\t\t\t\t\t" << "2.Edita Dissertacao\n";
-		cout << "\t\t\t\t\t" << "3.Remove Dissertacao\n";
-		cout << "\t\t\t\t\t" << "4.Voltar ao MenuPrincipal\n";
-		cout << "\t\t\t\t\t" << "5.Quit\n\n\n";
+	cout << endl;
+	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+	cout << "\t\t\t\t\t" << "==" << "Gestao de Dissertacoes" << "=="
+			<< "\n";
+	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+	cout << "\t\t\t\t\t" << "1.Adiciona Dissertacao\n";
+	cout << "\t\t\t\t\t" << "2.Edita Dissertacao\n";
+	cout << "\t\t\t\t\t" << "3.Remove Dissertacao\n";
+	cout << "\t\t\t\t\t" << "4.Voltar ao MenuPrincipal\n";
 
+	//Recebe o input de escolha
+	string choice = "";
+
+	while(true){
+
+		while (true) {
+			cout << "Indique a opcao desejada: ";
+			getline(cin, choice);
+			if (choice.length() == 1
+					&& (choice == "1" || choice == "2" || choice == "3"
+							|| choice == "4"))
+				break;
+			cout << "Opção invalido, insira uma opção novamente." << endl;
+		}
+
+		int option = atoi(choice.c_str());
+
+		switch (option){
+		case 1:
+			cout<<"por implementar\n";
+			break;
+		case 2:
+			cout<<"por implementar\n";
+			break;
+		case 3:
+			cout<<"por implementar\n";
+			break;
+		default:
+			return;
+		}
+	}
 }
 
-void gestaoSupervisores();
+void ThesisSolver::gestaoSupervisores(){
+	cout << endl;
+	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+	cout << "\t\t\t\t\t" << "==" << "Gestao de Dissertacoes" << "=="
+			<< "\n";
+	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
+	cout << "\t\t\t\t\t" << "1.Adiciona Supervisor\n";
+	cout << "\t\t\t\t\t" << "2.Edita Supervisor\n";
+	cout << "\t\t\t\t\t" << "3.Remove Supervisor\n";
+	cout << "\t\t\t\t\t" << "4.Voltar ao MenuPrincipal\n";
+
+	//Recebe o input de escolha
+	string choice = "";
+
+	while(true){
+
+		while (true) {
+			cout << "Indique a opcao desejada: ";
+			getline(cin, choice);
+			if (choice.length() == 1
+					&& (choice == "1" || choice == "2" || choice == "3"
+							|| choice == "4"))
+				break;
+			cout << "Opção invalido, insira uma opção novamente." << endl;
+		}
+
+		int option = atoi(choice.c_str());
+
+		switch (option){
+		case 1:
+			cout<<"por implementar\n";
+			break;
+		case 2:
+			cout<<"por implementar\n";
+			break;
+		case 3:
+			cout<<"por implementar\n";
+			break;
+		default:
+			return;
+		}
+	}
+};

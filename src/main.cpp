@@ -8,10 +8,9 @@ int main (){
 	ThesisSolver* solution = new ThesisSolver();
 	solution->readFile();
 	solution->menu();
+	//solution->saveFile();
 
 	cout<<"\nreading done!"<<endl;
 
-	//cout<<solution->getStudents().size()<<" nome "<<solution->getStudents()[0]->getName();
-	//system("pause");
 return 1;
 }
