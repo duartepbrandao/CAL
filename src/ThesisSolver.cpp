@@ -369,6 +369,12 @@ void ThesisSolver::convertIdsToEntitys()
 			it->addToPreferences(students[it2]);
 		}
 	}
+	for (vector<Entity*>::iterator it = Supervisor.begin(); it!=Supervisor.end();it++)
+	{
+		for(vector<int>::iterator it2 = it->getPreferencesID().begin(); it2!= it->getPreferencesID().end();it2++){
+			it->addToPreferences(dissertations[it2]);
+		}
+	}
 }
 
 
