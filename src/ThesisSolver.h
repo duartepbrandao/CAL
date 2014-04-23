@@ -24,7 +24,7 @@
 using namespace std;
 
 class ThesisSolver {
-private:
+	private:
 	vector<Entity*> students;
 	vector<Entity*> dissertations;
 	vector<Supervisor *> supervisors;
@@ -34,6 +34,7 @@ public:
 	void setStudents(const vector<Entity*> &vec);
 
 	ThesisSolver();
+	void assignVectors();
 	void readFile();
 	void saveFile();
 	void menu();
@@ -41,6 +42,7 @@ public:
 	void checkEnd();
 	void gestaoAlunos();
 	void gestaoDissertacoes();
+	Entity* getStudentByID(int id);
 	void gestaoSupervisores();
 };
 
