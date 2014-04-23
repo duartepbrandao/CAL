@@ -1,14 +1,14 @@
 /*
- * Superviso.cpp
- *
- *  Created on: 3 de Abr de 2014
- *      Author: ei10060
- */
+* Superviso.cpp
+*
+*  Created on: 3 de Abr de 2014
+*      Author: ei10060
+*/
 
 #include "Supervisor.h"
 
 Supervisor::Supervisor() :
-		Entity() {
+Entity() {
 }
 
 std::vector<Entity*> Supervisor::getSupervisoes() {
@@ -19,10 +19,25 @@ void Supervisor::addSupervisao(Entity* &supervisao) {
 }
 void Supervisor::removeSupervisao(Entity* &supervisao) {
 	for (std::vector<Entity*>::iterator it = supervisoes.begin();
-			it != supervisoes.end();) {
-		if ((*it)->getID() == supervisao->getID())
-			supervisoes.erase(it);
-		else
-			it++;
+		it != supervisoes.end();) {
+			if ((*it)->getID() == supervisao->getID())
+				supervisoes.erase(it);
+			else
+				it++;
 	}
+}
+
+void Supervisor::setMaxSupervisions( int max )
+{
+	this->maxSupervisions=max;
+}
+
+int Supervisor::getMaxSupervisions()
+{
+	return maxSupervisions;
+}
+
+int Supervisor::getCurrentSupervisions()
+{
+	return currentSupervisions;
 }

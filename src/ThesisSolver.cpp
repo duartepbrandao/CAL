@@ -350,4 +350,25 @@ void ThesisSolver::gestaoSupervisores(){
 	}
 };
 
+void ThesisSolver::solver2()
+{
+
+}
+
+void ThesisSolver::convertIdsToEntitys()
+{
+	for (vector<Entity*>::iterator it = students.begin(); it!=students.end();it++)
+	{
+		for(vector<int>::iterator it2 = it->getPreferencesID().begin(); it2!= it->getPreferencesID().end();it2++){
+			it->addToPreferences(dissertations[it2]);
+		}
+	}
+	for (vector<Entity*>::iterator it = dissertations.begin(); it!=dissertations.end();it++)
+	{
+		for(vector<int>::iterator it2 = it->getPreferencesID().begin(); it2!= it->getPreferencesID().end();it2++){
+			it->addToPreferences(students[it2]);
+		}
+	}
+}
+
 
