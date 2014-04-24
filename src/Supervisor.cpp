@@ -11,21 +11,11 @@ Supervisor::Supervisor() :
 Entity() {
 }
 
-std::vector<Entity*> Supervisor::getSupervisoes() {
-	return supervisoes;
+Supervisor::Supervisor( Supervisor* copyEntity ):Entity(copyEntity->getName(),copyEntity->getID(),copyEntity->getPreferences(),copyEntity->getPreferencesID())
+{
+	this->maxSupervisions=copyEntity->getMaxSupervisions();
 }
-void Supervisor::addSupervisao(Entity* &supervisao) {
-	supervisoes.push_back(supervisao);
-}
-void Supervisor::removeSupervisao(Entity* &supervisao) {
-	for (std::vector<Entity*>::iterator it = supervisoes.begin();
-		it != supervisoes.end();) {
-			if ((*it)->getID() == supervisao->getID())
-				supervisoes.erase(it);
-			else
-				it++;
-	}
-}
+
 
 void Supervisor::setMaxSupervisions( int max )
 {
@@ -37,7 +27,14 @@ int Supervisor::getMaxSupervisions()
 	return maxSupervisions;
 }
 
-int Supervisor::getCurrentSupervisions()
+int Supervisor::getCost( Entity* thesis )
 {
-	return currentSupervisions;
+	for (int i = 0; i < preferences.size(); i++)
+	{
+		if (thesis->id==preferences[i]->getID())
+		{
+			return i+1;
+		}
+	}
+	return INT_MAX;
 }

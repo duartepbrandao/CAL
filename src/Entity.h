@@ -22,7 +22,7 @@ protected:
 public:
 	Entity();
 	~Entity();
-
+	Entity(string name,int oldId,vector <Entity*> preferences,vector <int> preferencesID);
 	//getters()
 	string getName();
 	int getID();

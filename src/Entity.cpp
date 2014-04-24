@@ -11,6 +11,16 @@ Entity::Entity()
 	pair = NULL;
 }
 
+Entity::Entity( string name, int oldId, vector <Entity*> preferences,vector <int> preferencesID )
+{
+	this->name=name;
+	thisID=oldId;
+	pair= NULL;
+	paired=false;
+	this->preferences=preferences;
+	this->preferencesID = preferencesID;
+}
+
 std::string Entity::getName()
 {
 	return name;

@@ -27,7 +27,8 @@ class ThesisSolver {
 	private:
 	vector<Entity*> students;
 	vector<Entity*> dissertations;
-	vector<Supervisor *> supervisors;
+	vector<Supervisor*> supervisors;
+	int matrix [supervisors.size()] [supervisors.size()];
 
 public:
 	vector<Entity*> &getStudents();

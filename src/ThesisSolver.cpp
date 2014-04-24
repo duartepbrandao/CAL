@@ -212,9 +212,9 @@ void ThesisSolver::solver1() {
 }
 /*
 void ThesisSolver::checkEnd() {
-	for (vector<Entity*>::iterator it = students.begin(); it != students.end(); it++) {
+for (vector<Entity*>::iterator it = students.begin(); it != students.end(); it++) {
 
-	}
+}
 }*/
 
 void ThesisSolver::gestaoAlunos(){
@@ -351,28 +351,39 @@ void ThesisSolver::gestaoSupervisores(){
 };
 
 void ThesisSolver::solver2()
-{
+{//supervisor size > thesis size
+	
+	for (int SupIT= 0; SupIT<supervisors.size();SupIT++)
+	{
+		for (int TheIT = 0; TheIT<dissertations.size();TheIT++)
+		{
+			matrix [SupIT][TheIT] = (supervisors[SupIT])->getCost(dissertations[TheIT]);
+		}
+	}
 
 }
 
+
 void ThesisSolver::convertIdsToEntitys()
 {
-	for (vector<Entity*>::iterator it = students.begin(); it!=students.end();it++)
+	vector<Entity*>::iterator it;
+	for ( it = students.begin(); it!=students.end();it++)
 	{
-		for(vector<int>::iterator it2 = it->getPreferencesID().begin(); it2!= it->getPreferencesID().end();it2++){
-			it->addToPreferences(dissertations[it2]);
+		for(int i = 0; it5<(*it)->getPreferencesID().size();i++){
+			(*it)->addToPreferences(dissertations[i]);
 		}
 	}
-	for (vector<Entity*>::iterator it = dissertations.begin(); it!=dissertations.end();it++)
+	vector<Entity*>::iterator ita;
+	for (ita = dissertations.begin(); ita != dissertations.end();ita++)
 	{
-		for(vector<int>::iterator it2 = it->getPreferencesID().begin(); it2!= it->getPreferencesID().end();it2++){
-			it->addToPreferences(students[it2]);
+		for(int i = 0; i<(*ita)->getPreferencesID().size();i++){
+			(*ita)->addToPreferences(students[i]);
 		}
 	}
-	for (vector<Entity*>::iterator it = Supervisor.begin(); it!=Supervisor.end();it++)
+	for (vector<Supervisor*>::iterator it4 = supervisors.begin(); it4 != supervisors.end();it4++)
 	{
-		for(vector<int>::iterator it2 = it->getPreferencesID().begin(); it2!= it->getPreferencesID().end();it2++){
-			it->addToPreferences(dissertations[it2]);
+		for(vector<int>::iterator it7 = (*it4)->getPreferencesID().begin(); it7!= (*it4)->getPreferencesID().end();it4++){
+			(*it4)->addToPreferences(it7);
 		}
 	}
 }
