@@ -352,12 +352,14 @@ void ThesisSolver::gestaoSupervisores(){
 
 void ThesisSolver::solver2()
 {//supervisor size > thesis size
-	
+
+	vector <vector<int>> matrix;
 	for (int SupIT= 0; SupIT<supervisors.size();SupIT++)
 	{
 		for (int TheIT = 0; TheIT<dissertations.size();TheIT++)
 		{
-			matrix [SupIT][TheIT] = (supervisors[SupIT])->getCost(dissertations[TheIT]);
+			int custo = (supervisors[SupIT])->getCost(dissertations[TheIT]);
+			matrix[SupIT].push_back(custo);
 		}
 	}
 
@@ -369,7 +371,7 @@ void ThesisSolver::convertIdsToEntitys()
 	vector<Entity*>::iterator it;
 	for ( it = students.begin(); it!=students.end();it++)
 	{
-		for(int i = 0; it5<(*it)->getPreferencesID().size();i++){
+		for(int i = 0; i<(*it)->getPreferencesID().size();i++){
 			(*it)->addToPreferences(dissertations[i]);
 		}
 	}
@@ -380,10 +382,11 @@ void ThesisSolver::convertIdsToEntitys()
 			(*ita)->addToPreferences(students[i]);
 		}
 	}
-	for (vector<Supervisor*>::iterator it4 = supervisors.begin(); it4 != supervisors.end();it4++)
+	vector<Supervisor*>::iterator it4;
+	for (it4 = supervisors.begin(); it4 != supervisors.end(); it4++)
 	{
-		for(vector<int>::iterator it7 = (*it4)->getPreferencesID().begin(); it7!= (*it4)->getPreferencesID().end();it4++){
-			(*it4)->addToPreferences(it7);
+		for(int i = 0; i <(*it4)->getPreferencesID().size();i++){
+			(*it4)->addToPreferences(dissertations[i]);
 		}
 	}
 }
