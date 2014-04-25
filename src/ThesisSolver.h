@@ -46,6 +46,8 @@ public:
 	void gestaoSupervisores();
 	void convertIdsToEntitys();
 	void solver2();
+	void subtractSmallestRow(vector<vector<int>> & matrix);
+	void subtractSmallestColumn(vector<vector<int>> & matrix );
 };
 
 #endif /* THESISSOLVER_H_ */

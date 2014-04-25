@@ -353,16 +353,16 @@ void ThesisSolver::gestaoSupervisores(){
 void ThesisSolver::solver2()
 {//supervisor size > thesis size
 
-	vector <vector<int>> matrix;
-	for (int SupIT= 0; SupIT<supervisors.size();SupIT++)
+	vector<vector<int>> matrix;
+	for (int theIT = 0; theIT<dissertations.size();theIT++)
 	{
-		for (int TheIT = 0; TheIT<dissertations.size();TheIT++)
+		for (int supIT= 0; supIT<supervisors.size();supIT++)
 		{
-			int custo = (supervisors[SupIT])->getCost(dissertations[TheIT]);
-			matrix[SupIT].push_back(custo);
+			int custo = (supervisors[supIT])->getCost(dissertations[theIT]);
+			matrix[theIT].push_back(custo);
 		}
 	}
-
+	subtractSmallestRow(matrix);
 }
 
 
@@ -387,6 +387,55 @@ void ThesisSolver::convertIdsToEntitys()
 	{
 		for(int i = 0; i <(*it4)->getPreferencesID().size();i++){
 			(*it4)->addToPreferences(dissertations[i]);
+		}
+	}
+}
+
+void ThesisSolver::subtractSmallestRow(vector<vector<int>> & matrix )
+{	vector <int> smallest;
+	for (int j = 0; j < matrix.size(); j++);
+	{
+		int smallestNumber = matrix[j][0];
+		for (int i = 0; i < matrix[j].size();i++)
+		{
+			if (matrix[j][i] < smallest)
+			{
+				smallestNumber = matrix[j][i];
+			}
+		}
+		smallest.push_back(smallestNumber);
+	}
+
+	for (int j = 0; j < matrix.size(); j++)
+	{
+		for (int i = 0; i < matrix[j].size();i++)
+		{
+			matrix[j][i] = matrix[j][i] - smallest[j];
+		}
+	}
+}
+
+void ThesisSolver::subtractSmallestColumn(vector<vector<int>> & matrix )
+{	
+	vector <int> smallest;
+	for (int j = 0; j < supervisors.size(); j++);
+	{
+		int smallestNumber = matrix[0][j];
+		for (int i = 0; i < matrix[j].size();i++)
+		{
+			if (matrix[i][j] < smallest)
+			{
+				smallestNumber = matrix[j][i];
+			}
+		}
+		smallest.push_back(smallestNumber);
+	}
+
+	for (int j = 0; j < matrix.size(); j++)
+	{
+		for (int i = 0; i < matrix[j].size();i++)
+		{
+			matrix[j][i] = matrix[j][i] - smallest[j];
 		}
 	}
 }
