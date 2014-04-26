@@ -24,7 +24,7 @@
 using namespace std;
 
 class ThesisSolver {
-	private:
+private:
 	vector<Entity*> students;
 	vector<Entity*> dissertations;
 	vector<Supervisor*> supervisors;
@@ -39,13 +39,17 @@ public:
 	void saveFile();
 	void menu();
 	void solver1();
-	void checkEnd();
+	Entity * checkEnd();
 	void gestaoAlunos();
 	void gestaoDissertacoes();
 	Entity* getStudentByID(int id);
 	void gestaoSupervisores();
+	Entity* getDissertationsByID(int id);
+	void atribuirTeses();
+	Entity* desempata(Entity* aluno1, Entity* aluno2, Entity* dissertacao);
 	void convertIdsToEntitys();
 	void solver2();
+	bool teseGostaAluno(Entity * aluno);
 };
 
 #endif /* THESISSOLVER_H_ */

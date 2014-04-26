@@ -1,0 +1,25 @@
+Students Information
+
+Name	preferencies
+James	
+Rodriguez	5
+Hernano	7,8
+Candida	8,5
+---------------------
+
+
+Projects Information
+
+Name	preferencies
+Arquitetura	2,4,1
+Pintura	1,2
+Arte	3,2
+Escultura	4,3
+---------------------
+
+
+Supervisors Information
+
+Name	preferencies
+james	5,4,3,6
+---------------------

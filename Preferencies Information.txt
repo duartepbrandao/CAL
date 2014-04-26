@@ -1,15 +1,20 @@
 Students Information
 
 Name	preferencies
-james	5,4,3,6
-Rodriguez	99,543
+James	5
+Rodriguez	8,5
+Hernano	7,8
+Candida	8,5
 ---------------------
 
 
 Projects Information
 
 Name	preferencies
-Arquitetura	3456456,23
+Arquitetura	2,4,1
+Pintura	1,2
+Arte	3,2
+Escultura	4,3
 ---------------------
 
 
