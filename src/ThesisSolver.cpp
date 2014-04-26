@@ -79,7 +79,13 @@ void ThesisSolver::readFile() {
 				dissertations.push_back(temp);
 				break;
 			default: //case 3:
-				supervisors.push_back(temp2);
+				int numberTasks = temp2->getPreferencesID()[0];
+				vector<int>::iterator it=temp2->getPreferencesID().begin();
+				temp2->getPreferencesID().erase(it);
+				for (int i = 0; i < numberTasks;i++)
+				{
+					supervisors.push_back(temp2);
+				}
 				break;
 			}
 			if (phase == 3) break;
@@ -354,12 +360,16 @@ void ThesisSolver::solver2()
 {//supervisor size > thesis size
 
 	vector<vector<int>> matrix;
-	for (int theIT = 0; theIT<dissertations.size();theIT++)
-	{
-		for (int supIT= 0; supIT<supervisors.size();supIT++)
-		{
-			int custo = (supervisors[supIT])->getCost(dissertations[theIT]);
-			matrix[theIT].push_back(custo);
+
+	for (int supIT= 0; supIT<supervisors.size();supIT++){
+	for (int theIT = 0; theIT<supervisors.size();theIT++)		
+		{	
+			int custo = INT_MAX;
+			if (theIT<dissertations.size())
+			{
+				int custo = (supervisors[supIT])->getCost(dissertations[theIT]);
+			}
+			matrix[supIT].push_back(custo);
 		}
 	}
 	subtractSmallestRow(matrix);
@@ -393,7 +403,7 @@ void ThesisSolver::convertIdsToEntitys()
 
 void ThesisSolver::subtractSmallestRow(vector<vector<int>> & matrix )
 {	vector <int> smallest;
-	for (int j = 0; j < matrix.size(); j++);
+	for (unsigned int j = 0; j < matrix.size(); j++)
 	{
 		int smallestNumber = matrix[j][0];
 		for (int i = 0; i < matrix[j].size();i++)
@@ -406,7 +416,7 @@ void ThesisSolver::subtractSmallestRow(vector<vector<int>> & matrix )
 		smallest.push_back(smallestNumber);
 	}
 
-	for (int j = 0; j < matrix.size(); j++)
+	for (int j = 0; j < smallest.size(); j++)
 	{
 		for (int i = 0; i < matrix[j].size();i++)
 		{
@@ -418,24 +428,23 @@ void ThesisSolver::subtractSmallestRow(vector<vector<int>> & matrix )
 void ThesisSolver::subtractSmallestColumn(vector<vector<int>> & matrix )
 {	
 	vector <int> smallest;
-	for (int j = 0; j < supervisors.size(); j++);
+	for (int j = 0; j < supervisors.size(); j++)
 	{
 		int smallestNumber = matrix[0][j];
 		for (int i = 0; i < matrix[j].size();i++)
 		{
 			if (matrix[i][j] < smallest)
 			{
-				smallestNumber = matrix[j][i];
+				smallestNumber = matrix[i][j];
 			}
 		}
 		smallest.push_back(smallestNumber);
 	}
-
-	for (int j = 0; j < matrix.size(); j++)
+	for (int j = 0; j < dissertations.size(); j++)
 	{
 		for (int i = 0; i < matrix[j].size();i++)
 		{
-			matrix[j][i] = matrix[j][i] - smallest[j];
+			matrix[i][j] = matrix[i][j] - smallest[i];
 		}
 	}
 }
