@@ -7,9 +7,7 @@
 
 #include "Supervisor.h"
 
-Supervisor::Supervisor() :
-Entity() {
-}
+Supervisor::Supervisor() : Entity() {}
 
 Supervisor::Supervisor( Supervisor* copyEntity ):Entity(copyEntity->getName(),copyEntity->getID(),copyEntity->getPreferences(),copyEntity->getPreferencesID())
 {

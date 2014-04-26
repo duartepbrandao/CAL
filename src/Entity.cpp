@@ -28,7 +28,7 @@ std::string Entity::getName()
 
 int Entity::getID()
 {
-	return id;
+	return thisID;
 }
 
 Entity* Entity::getPair()
@@ -41,12 +41,12 @@ bool Entity::isPaired()
 	return paired;
 }
 
-std::vector <Entity*> Entity::getPreferences()
+vector<Entity*> Entity::getPreferences()
 {
 	return preferences;
 }
 
-std::vector <int> Entity::getPreferencesID()
+vector<int> & Entity::getPreferencesID()
 {
 	return preferencesID;
 }
@@ -56,9 +56,10 @@ void Entity::setName( std::string name )
 	this->name=name;
 }
 
-void Entity::setPair( Entity* entety )
+void Entity::setPair( Entity* pair )
 {
-	this->pair=entety;
+	paired=true;
+	this->pair=pair;
 }
 
 void Entity::setPaired( bool paired )
@@ -81,4 +82,12 @@ void Entity::addToPreferencesID( int id )
 	preferencesID.push_back(id);
 }
 
+bool Entity::teseGostaAluno(Entity * dissertation){
+	vector<int> preferencias = dissertation->getPreferencesID();
 
+	for(int i=0; i<(int)preferencias.size(); i++)
+		if(preferencias[i]==(this->getID()))
+			return true;
+
+	return false;
+}

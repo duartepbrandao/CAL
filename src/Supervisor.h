@@ -9,6 +9,7 @@
 #define SUPERVISOR_H_
 #include "Entity.h"
 #include <iostream>
+#include <climits>
 
 using namespace std;
 
