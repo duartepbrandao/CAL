@@ -11,17 +11,15 @@ int main (){
 	//solution->menu();
 
 	solution->atribuirTeses();
+	cout <<"it";
+	vector<Entity*>::iterator it = solution->getStudents().begin();
+	cout<<solution->getStudents().size()<<endl;
 
-	vector<Entity *>::iterator it = solution->getStudents().begin();
+	solution->printSolution1();
 
-	for(; it!=solution->getStudents().end(); it++)
-	{
-		cout<<(*it)->getName()<<" gosta ";
-		if((*it)->getPair()!=NULL) cout<<(*it)->getPair()->getName()<<endl;
-		else cout<<"NULL"<<endl;
-	}
-
-	solution->saveFile();
+	cout <<"it2";
+	cout<<"end";
+	//solution->saveFile();
 
 	cout<<"\nreading done!"<<endl;
 

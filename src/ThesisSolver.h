@@ -67,5 +67,7 @@ public:
 	void erase_primes(int size, vector<vector<int>> & mask);
 	int adjustCost( vector<vector<int>> &matrix, vector<int> rowCover, vector<int> colCover );
 	void find_smallest( int &min, vector<vector<int>> & matrix, vector<int> rowCover, vector<int> colCover );
+	void printSolution1();
+	void printSolution2();
 };
 #endif /* THESISSOLVER_H_ */

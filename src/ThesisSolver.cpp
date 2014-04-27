@@ -530,6 +530,7 @@ int ThesisSolver::countStarred( vector<vector<int>>& matrix, vector<vector<int>>
 void ThesisSolver::solver2()
 { 
 	//supervisor size > thesis size
+	//line supervisor, column task
 	vector<vector<int>> matrix;
 	vector<vector<int>> mask;
 	vector <int> rowCover,colCover;
@@ -572,7 +573,17 @@ void ThesisSolver::solver2()
 		case 4:
 			step = adjustCost(matrix, rowCover,colCover);
 			break;
-
+		}
+	}
+	//solution is in mask;
+	for (int r = 0; r < mask.size(); r++)
+	{
+		for (int c = 0; c < mask.size(); c++)
+		{	//if mask [c][r] == 1, thats the solution
+			if (mask[c][r]==1)
+			{
+				(supervisors[c])->setPair(dissertations[r]);
+			}
 		}
 	}
 
@@ -800,6 +811,18 @@ void ThesisSolver::find_smallest( int &min, vector<vector<int>> & matrix, vector
 				}
 			}
 		}
+	}
+}
+
+void ThesisSolver::printSolution1()
+{	
+	cout<<"teste"<<endl;
+	for (vector <Entity*>::iterator it = students.begin(); it != students.end(); it++)
+	{	if(((*it)->getPair()) == NULL){
+		cout<<"null";
+	}
+		cout<<"for";
+		cout<<(*it)->getName()<<" gets "<< ((*it)->getPair())->getName()<<endl;
 	}
 }
 
