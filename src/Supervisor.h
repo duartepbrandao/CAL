@@ -1,30 +1,41 @@
-/*
- * Supervisor.h
- *
- *  Created on: 3 de Abr de 2014
- *      Author: ei10060
- */
-
 #ifndef SUPERVISOR_H_
 #define SUPERVISOR_H_
-#include "Entity.h"
+
 #include <iostream>
 #include <climits>
 
+#include "Dissertation.h"
+
 using namespace std;
 
-class Supervisor: public Entity {
+class Supervisor {
+
+private:
+	static unsigned int id; //starts at 1
+	unsigned int thisID;
+	string name;
+	Dissertation* pair;
+	vector<unsigned int> preferencesID;
+	vector<Dissertation*> preferences;
 	int maxSupervisions;
+
 public:
 	Supervisor();
 	Supervisor(Supervisor* copyEntity);
-	void setMaxSupervisions(int max);
-	int getMaxSupervisions();
-	int getCurrentSupervisions();
-	std::vector<Entity*> getSupervisoes();
-	void addSupervisao(Entity* &supervisao);
-	void removeSupervisao(Entity* &supervisao);
-	int getCost(Entity* thesis);
+	~Supervisor();
+
+	unsigned int getID() const;
+	string getName() const;
+	Dissertation* getPair() const;
+	vector<unsigned int> & getPreferencesID();
+	vector<Dissertation*> & getPreferences();
+	unsigned int getMaxSupervisions() const;
+
+	void setName(string name);
+	void setPair(Dissertation* pair);
+	void setMaxSupervisions(unsigned int max);
+
+	int getCost(Dissertation* thesis);
 
 };
 

@@ -1,28 +1,18 @@
-/*
- * ThesisSolver.cpp
- *
- *  Created on: 27 de Mar de 2014
- *      Author: Utilizador
- */
-
 #include "ThesisSolver.h"
 
-Entity* ThesisSolver::getStudentByID(int id){
-	vector<Entity*>::iterator it;
-	for( it = students.begin(); it!=students.end() ;it++) {
-		if ((*it)->getID()==id)
-			return (*it);
-	}
-	return NULL;
+
+ThesisSolver::ThesisSolver() {}
+
+void ThesisSolver::setStudents(const vector<Student*> &vec) {
+	this->students = vec;
 }
 
-Entity* ThesisSolver::getDissertationsByID(int id){
-	vector<Entity*>::iterator it;
-	for( it = dissertations.begin(); it!=dissertations.end() ;it++) {
-		if ((*it)->getID()==id)
-			return (*it);
-	}
-	return NULL;
+vector<Student*> &ThesisSolver::getStudents() {
+	return students;
+}
+
+vector<Dissertation*> &ThesisSolver::getDissertations() {
+	return dissertations;
 }
 
 void ThesisSolver::readFile() {
@@ -54,17 +44,25 @@ void ThesisSolver::readFile() {
 		}
 
 		while (content != "---------------------") {
-			Supervisor* temp2 = NULL;
-			Entity* temp = NULL;
+			Student* tempStu = NULL;
+			Dissertation* tempDis = NULL;
+			Supervisor* tempSup = NULL;
 
 			string name = content.substr(0, content.find('\t'));
-			if (phase == 3){
-				temp2=new Supervisor();
-				temp2->setName(name);
-			}
-			else{
-				temp=new Entity();
-				temp->setName(name);
+
+			switch (phase){
+			case 1:
+				tempStu=new Student();
+				tempStu->setName(name);
+				break;
+			case 2:
+				tempDis=new Dissertation();
+				tempDis->setName(name);
+				break;
+			default:
+				tempSup=new Supervisor();
+				tempSup->setName(name);
+				break;
 			}
 
 			content.erase(0, content.find('\t') + 1);
@@ -77,31 +75,36 @@ void ThesisSolver::readFile() {
 				else pos = content.size(); //nao encontra a virgula, apenas existe mais uma preferencia
 
 				int pref = atoi(content.substr(0, pos).c_str());
-				if (phase == 3)
-					temp2->addToPreferencesID(pref);
-				else temp->addToPreferencesID(pref);
+				switch (phase){
+				case 1:
+					tempStu->getPreferencesID().push_back(pref);
+					break;
+				case 2:
+					tempDis->getPreferencesID().push_back(pref);
+					break;
+				default:
+					tempSup->getPreferencesID().push_back(pref);
+					break;
+				}
 
 				content.erase(0, pos + 1);
 			}
 
 			switch (phase) {
 			case 1:
-				students.push_back(temp);
+				students.push_back(tempStu);
 				break;
 			case 2:
-				dissertations.push_back(temp);
+				dissertations.push_back(tempDis);
 				break;
 			default: //case 3:
-				int numberTasks = temp2->getPreferencesID()[0];
-				vector<int>::iterator it=temp2->getPreferencesID().begin();
-				temp2->getPreferencesID().erase(it);
+				int numberTasks = tempSup->getPreferencesID()[0];
+				vector<unsigned int>::iterator it = tempSup->getPreferencesID().begin();
+				tempSup->getPreferencesID().erase(it);
 				for (int i = 0; i < numberTasks;i++)
-				{
-					supervisors.push_back(temp2);
-				}
+					supervisors.push_back(tempSup);
 				break;
 			}
-			if (phase == 3) break;
 			getline(readFile, content);
 		}
 		if (phase == 3) break;
@@ -116,7 +119,7 @@ void ThesisSolver::saveFile() {
 
 	fileSave << "Students Information\n\n" << "Name\t" << "preferencies\n";
 
-	for(vector<Entity*>::iterator it = students.begin(); it!=students.end(); it++){
+	for(vector<Student*>::iterator it = students.begin(); it!=students.end(); it++){
 		fileSave << (*it)->getName() << '\t';
 		for(unsigned int i=0; i<(*it)->getPreferencesID().size(); i++){
 			fileSave << (*it)->getPreferencesID()[i];
@@ -127,7 +130,7 @@ void ThesisSolver::saveFile() {
 
 	fileSave << "---------------------\n\n\n" << "Projects Information\n\n" << "Name\t" << "preferencies\n";
 
-	for(vector<Entity*>::iterator it = dissertations.begin(); it!=dissertations.end(); it++){
+	for(vector<Dissertation*>::iterator it = dissertations.begin(); it!=dissertations.end(); it++){
 		fileSave << (*it)->getName() << '\t';
 		for(unsigned int i=0; i<(*it)->getPreferencesID().size(); i++){
 			fileSave << (*it)->getPreferencesID()[i];
@@ -152,13 +155,25 @@ void ThesisSolver::saveFile() {
 	fileSave.close();
 }
 
-vector<Entity*> & ThesisSolver::getStudents() {
-	return students;
+
+Student* ThesisSolver::getStudentByID(unsigned int id){
+	vector<Student*>::iterator it;
+	for( it = students.begin(); it!=students.end() ;it++) {
+		if ((*it)->getID()==id)
+			return (*it);
+	}
+	return NULL;
 }
 
-void ThesisSolver::setStudents(const vector<Entity*> &vec) {
-	this->students = vec;
+Dissertation* ThesisSolver::getDissertationsByID(unsigned int id){
+	vector<Dissertation*>::iterator it;
+	for( it = dissertations.begin(); it!=dissertations.end() ;it++) {
+		if ((*it)->getID()==id)
+			return (*it);
+	}
+	return NULL;
 }
+
 
 void ThesisSolver::menu() {
 	bool display=true;
@@ -223,18 +238,6 @@ void ThesisSolver::menu() {
 			return;
 		}
 	}
-}
-
-ThesisSolver::ThesisSolver() {
-
-}
-
-Entity * ThesisSolver::checkEnd() { //true se ainda nao terminou
-	for (vector<Entity*>::iterator it = students.begin(); it != students.end(); it++) {
-		if((*it)->isPaired()==false && (*it)->getPreferencesID().size()!=0)
-			return (*it);
-	}
-	return NULL;
 }
 
 void ThesisSolver::gestaoAlunos(){
@@ -370,10 +373,40 @@ void ThesisSolver::gestaoSupervisores(){
 	}
 };
 
-Entity * ThesisSolver::desempata(Entity* aluno1, Entity* aluno2, Entity* dissertacao){
-	int id1 = aluno1->getID();
-	int id2 = aluno2->getID();
-	vector<int> preferencias = dissertacao->getPreferencesID();
+
+void ThesisSolver::atribuirTeses(){
+	Student* aluno = checkEnd();
+
+	while(aluno!=NULL){
+		Dissertation * teseFavorita = getDissertationsByID((aluno)->getPreferencesID()[0]);
+		if(!teseFavorita->getPairStu()){
+			if(aluno->teseGostaAluno(teseFavorita)){
+				aluno->setPair(teseFavorita);
+				teseFavorita->setPairStu(aluno);
+			}
+			else aluno->getPreferencesID().erase(aluno->getPreferencesID().begin());
+		}
+		else{
+			Student* alunoVencedor = desempata(teseFavorita->getPairStu(),aluno,teseFavorita);
+			alunoVencedor->setPair(teseFavorita);
+			teseFavorita->setPairStu(alunoVencedor);
+		}
+		aluno = checkEnd();
+	}
+}
+
+Student* ThesisSolver::checkEnd() const{ //NULL se ja terminou
+	for (vector<Student*>::const_iterator it = students.begin(); it != students.end(); it++) {
+		if((*it)->getPair()==NULL && (*it)->getPreferencesID().size()!=0)
+			return (*it);
+	}
+	return NULL;
+}
+
+Student* ThesisSolver::desempata(Student* aluno1, Student* aluno2, Dissertation* dissertacao){
+	unsigned int id1 = aluno1->getID();
+	unsigned int id2 = aluno2->getID();
+	vector<unsigned int> preferencias = dissertacao->getPreferencesID();
 	for(unsigned int i=0; i<preferencias.size(); i++){
 		if(preferencias[i]==id1){
 			aluno2->getPreferencesID().erase(aluno2->getPreferencesID().begin());
@@ -387,116 +420,65 @@ Entity * ThesisSolver::desempata(Entity* aluno1, Entity* aluno2, Entity* dissert
 	return NULL;
 }
 
-void ThesisSolver::solver2()
-{//supervisor size > thesis size
-	vector<vector<int>> matrix;
+/*
+void ThesisSolver::solver2(){
+	//supervisor size > thesis size
+	vector<vector<unsigned int> > matrix;
 
-	for (int supIT= 0; supIT<supervisors.size();supIT++){
-	for (int theIT = 0; theIT<supervisors.size();theIT++)		
-		{	
+	for (unsigned int supIT= 0; supIT<supervisors.size();supIT++){
+		for (unsigned int theIT = 0; theIT<supervisors.size();theIT++){
 			int custo = INT_MAX;
 			if (theIT<dissertations.size())
-			{
 				int custo = (supervisors[supIT])->getCost(dissertations[theIT]);
-			}
 			matrix[supIT].push_back(custo);
-
 		}
 	}
 	subtractSmallestRow(matrix);
 }
 
-void ThesisSolver::convertIdsToEntitys()
-{
-	vector<Entity*>::iterator it;
+void ThesisSolver::convertIdsToEntitys(){
+	vector<Student*>::iterator it;
 	for ( it = students.begin(); it!=students.end();it++)
-	{
-		for(int i = 0; i<(*it)->getPreferencesID().size();i++){
-			(*it)->addToPreferences(dissertations[i]);
-		}
-	}
-	vector<Entity*>::iterator ita;
+		for(unsigned int i = 0; i<(*it)->getPreferencesID().size();i++)
+			(*it)->getPreferences().push_back(dissertations[i]);
+
+	vector<Dissertation*>::iterator ita;
 	for (ita = dissertations.begin(); ita != dissertations.end();ita++)
-	{
-		for(int i = 0; i<(*ita)->getPreferencesID().size();i++){
-			(*ita)->addToPreferences(students[i]);
-		}
-	}
+		for(unsigned int i = 0; i<(*ita)->getPreferencesID().size();i++)
+			(*ita)->getPreferences().push_back(students[i]);
+
 	vector<Supervisor*>::iterator it4;
 	for (it4 = supervisors.begin(); it4 != supervisors.end(); it4++)
-	{
-		for(int i = 0; i <(*it4)->getPreferencesID().size();i++){
-			(*it4)->addToPreferences(dissertations[i]);
-		}
-	}
+		for(unsigned int i = 0; i <(*it4)->getPreferencesID().size();i++)
+			(*it4)->getPreferences().push_back(dissertations[i]);
 }
 
-void ThesisSolver::subtractSmallestRow(vector<vector<int>> & matrix )
-{	vector <int> smallest;
-	for (unsigned int j = 0; j < matrix.size(); j++)
-	{
+void ThesisSolver::subtractSmallestRow(vector<vector<int> > &matrix ){
+	vector <int> smallest;
+	for (unsigned int j = 0; j < matrix.size(); j++){
 		int smallestNumber = matrix[j][0];
 		for (int i = 0; i < matrix[j].size();i++)
-		{
 			if (matrix[j][i] < smallest)
-			{
 				smallestNumber = matrix[j][i];
-			}
-		}
 		smallest.push_back(smallestNumber);
 	}
 
 	for (int j = 0; j < smallest.size(); j++)
-	{
 		for (int i = 0; i < matrix[j].size();i++)
-		{
 			matrix[j][i] = matrix[j][i] - smallest[j];
-		}
-	}
 }
 
-void ThesisSolver::subtractSmallestColumn(vector<vector<int>> & matrix )
-{	
+void ThesisSolver::subtractSmallestColumn(vector<vector<int> > &matrix ){
 	vector <int> smallest;
-	for (int j = 0; j < supervisors.size(); j++)
-	{
+	for (unsigned int j = 0; j < supervisors.size(); j++){
 		int smallestNumber = matrix[0][j];
-		for (int i = 0; i < matrix[j].size();i++)
-		{
+		for (unsigned int i = 0; i < matrix[j].size();i++)
 			if (matrix[i][j] < smallest)
-			{
 				smallestNumber = matrix[i][j];
-			}
-		}
 		smallest.push_back(smallestNumber);
 	}
-	for (int j = 0; j < dissertations.size(); j++)
-	{
-		for (int i = 0; i < matrix[j].size();i++)
-		{
+	for (unsigned int j = 0; j < dissertations.size(); j++)
+		for (unsigned int i = 0; i < matrix[j].size();i++)
 			matrix[i][j] = matrix[i][j] - smallest[i];
-		}
-	}
 }
-void ThesisSolver::atribuirTeses(){
-	Entity * aluno = checkEnd();
-
-	while(aluno!=NULL){
-		Entity * teseFavorita = getDissertationsByID((aluno)->getPreferencesID()[0]);
-
-		if(!teseFavorita->isPaired()){
-			if(aluno->teseGostaAluno(teseFavorita)){
-				aluno->setPair(teseFavorita);
-				teseFavorita->setPair(aluno);
-			}
-			else aluno->getPreferencesID().erase(aluno->getPreferencesID().begin());
-		}
-		else{
-			Entity * alunoVencedor = desempata(teseFavorita->getPair(),aluno,teseFavorita);
-			alunoVencedor->setPair(teseFavorita);
-			teseFavorita->setPair(alunoVencedor);
-		}
-		aluno = checkEnd();
-	}
-}
-
+*/

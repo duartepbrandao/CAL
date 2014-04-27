@@ -1,10 +1,10 @@
 Students Information
 
 Name	preferencies
-James	5
-Rodriguez	8,5
-Hernano	7,8
-Candida	8,5
+James	2,3
+Rodriguez	3,1
+Hernano	3,4
+Candida	4,1
 ---------------------
 
 

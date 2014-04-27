@@ -1,57 +1,58 @@
-/*
- * ThesisSolver.h
-
- *
- *  Created on: 27 de Mar de 2014
- *      Author: Utilizador
- */
-
 #ifndef THESISSOLVER_H_
 #define THESISSOLVER_H_
 
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include "Entity.h"
 #include <vector>
 #include <fstream>
 #include <string>
 #include <cstdlib>
 #include <iomanip>
 #include <climits>
+
+#include "Student.h"
+#include "Dissertation.h"
 #include "Supervisor.h"
 
 using namespace std;
 
 class ThesisSolver {
+
 private:
-	vector<Entity*> students;
-	vector<Entity*> dissertations;
+	vector<Student*> students;
+	vector<Dissertation*> dissertations;
 	vector<Supervisor*> supervisors;
 
 public:
-	vector<Entity*> &getStudents();
-	void setStudents(const vector<Entity*> &vec);
-
 	ThesisSolver();
-	void assignVectors();
+
+	void setStudents(const vector<Student*> &vec);
+
+	vector<Student*> &getStudents();
+	vector<Dissertation*> &getDissertations();
+
 	void readFile();
 	void saveFile();
+
 	void menu();
-	void solver1();
-	Entity * checkEnd();
 	void gestaoAlunos();
 	void gestaoDissertacoes();
-	Entity* getStudentByID(int id);
 	void gestaoSupervisores();
-	Entity* getDissertationsByID(int id);
+
+	Student* getStudentByID(unsigned int id);
+	Dissertation* getDissertationsByID(unsigned int id);
+
 	void atribuirTeses();
-	Entity* desempata(Entity* aluno1, Entity* aluno2, Entity* dissertacao);
+	Student* checkEnd() const;
+	Student* desempata(Student* aluno1, Student* aluno2, Dissertation* thesis);
+
+
+	void assignVectors();
 	void convertIdsToEntitys();
 	void solver2();
-	void subtractSmallestRow(vector<vector<int>> & matrix);
-	void subtractSmallestColumn(vector<vector<int>> & matrix );
-	bool teseGostaAluno(Entity * aluno);
+	void subtractSmallestRow(vector<vector<int> > & matrix);
+	void subtractSmallestColumn(vector<vector<int> > & matrix );
 };
 
 #endif /* THESISSOLVER_H_ */

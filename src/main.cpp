@@ -1,17 +1,23 @@
 #include <iostream>
 #include <stdlib.h>
-#include "ThesisSolver.h"
 #include <vector>
+
+#include "Student.h"
+#include "Dissertation.h"
+#include "Supervisor.h"
+#include "ThesisSolver.h"
+
 using namespace std;
 
 int main (){
+
 	ThesisSolver* solution = new ThesisSolver();
 	solution->readFile();
 	//solution->menu();
 
 	solution->atribuirTeses();
 
-	vector<Entity *>::iterator it = solution->getStudents().begin();
+	vector<Student*>::iterator it = solution->getStudents().begin();
 
 	for(; it!=solution->getStudents().end(); it++)
 	{
