@@ -462,6 +462,7 @@ void ThesisSolver::subtractSmallestColumn(vector<vector<int>> & matrix )
 		}
 	}
 }
+
 void ThesisSolver::atribuirTeses(){
 	Entity * aluno = checkEnd();
 
@@ -818,11 +819,16 @@ void ThesisSolver::printSolution1()
 {	
 	cout<<"teste"<<endl;
 	for (vector <Entity*>::iterator it = students.begin(); it != students.end(); it++)
-	{	if(((*it)->getPair()) == NULL){
-		cout<<"null";
-	}
+	{	
 		cout<<"for";
+		
+		if(((*it)->getPair()) != NULL){
 		cout<<(*it)->getName()<<" gets "<< ((*it)->getPair())->getName()<<endl;
+		}
+		else{
+			cout<<(*it)->getName()<<" is not matched "<<endl;
+		}
+		
 	}
 }
 
