@@ -1,9 +1,9 @@
 /*
- * ThesisSolver.cpp
- *
- *  Created on: 27 de Mar de 2014
- *      Author: Utilizador
- */
+* ThesisSolver.cpp
+*
+*  Created on: 27 de Mar de 2014
+*      Author: Utilizador
+*/
 
 #include "ThesisSolver.h"
 
@@ -25,7 +25,7 @@ Entity* ThesisSolver::getDissertationsByID(int id){
 	return NULL;
 }
 
-void ThesisSolver::readFile() {
+void ThesisSolver::readFiles() {
 
 	ifstream readFile; //read the content of a file
 	string content; // temporary information string
@@ -37,10 +37,10 @@ void ThesisSolver::readFile() {
 		readFile.close();
 		ofstream fileCreate("Preferencies Information.txt");
 		fileCreate << "Students Information\n\n" << "Name\t" << "preferencies\n"
-				<< "---------------------\n\n\n" << "Projects Information\n\n"
-				<< "Name\t" << "preferencies\n" << "---------------------\n\n\n"
-				<< "Supervisors Information\n\n" << "Name\t" << "preferencies\n"
-				<< "---------------------\n";
+			<< "---------------------\n\n\n" << "Projects Information\n\n"
+			<< "Name\t" << "preferencies\n" << "---------------------\n\n\n"
+			<< "Supervisors Information\n\n" << "Name\t" << "preferencies\n"
+			<< "---------------------\n";
 		fileCreate.close();
 		readFile.open("Preferencies Information.txt");
 	}
@@ -152,11 +152,12 @@ void ThesisSolver::saveFile() {
 	fileSave.close();
 }
 
-vector<Entity*> & ThesisSolver::getStudents() {
+
+vector<Entity*> ThesisSolver::getStudents() {
 	return students;
 }
 
-void ThesisSolver::setStudents(const vector<Entity*> &vec) {
+void ThesisSolver::setStudents(vector<Entity*> vec) {
 	this->students = vec;
 }
 
@@ -171,7 +172,7 @@ void ThesisSolver::menu() {
 				cout << endl;
 				cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
 				cout << "\t\t\t\t\t" << "==" << "Organizador de Dissertações" << "=="
-						<< "\n";
+					<< "\n";
 				cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
 				cout << "\t\t\t\t\t" << "1.Gestao de Alunos\n";
 				cout << "\t\t\t\t\t" << "2.Gestao de Dissertacoes\n";
@@ -185,9 +186,9 @@ void ThesisSolver::menu() {
 			cout << "Indique a opcao desejada: ";
 			getline(cin, choice);
 			if (choice.length() == 1
-					&& (choice == "1" || choice == "2" || choice == "3"
-							|| choice == "4" || choice == "5" || choice == "6"
-									|| choice == "7"))
+				&& (choice == "1" || choice == "2" || choice == "3"
+				|| choice == "4" || choice == "5" || choice == "6"
+				|| choice == "7"))
 				break;
 			cout << "Opção invalido, insira uma opção novamente." << endl;
 		}
@@ -241,7 +242,7 @@ void ThesisSolver::gestaoAlunos(){
 	cout << endl;
 	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
 	cout << "\t\t\t\t\t" << "==" << "Gestao de Alunos" << "=="
-			<< "\n";
+		<< "\n";
 	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
 	cout << "\t\t\t\t\t" << "1.Adiciona Aluno\n";
 	cout << "\t\t\t\t\t" << "2.Edita Aluno\n";
@@ -257,8 +258,8 @@ void ThesisSolver::gestaoAlunos(){
 			cout << "Indique a opcao desejada: ";
 			getline(cin, choice);
 			if (choice.length() == 1
-					&& (choice == "1" || choice == "2" || choice == "3"
-							|| choice == "4"))
+				&& (choice == "1" || choice == "2" || choice == "3"
+				|| choice == "4"))
 				break;
 			cout << "Opção invalido, insira uma opção novamente." << endl;
 		}
@@ -286,7 +287,7 @@ void ThesisSolver::gestaoDissertacoes(){
 	cout << endl;
 	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
 	cout << "\t\t\t\t\t" << "==" << "Gestao de Dissertacoes" << "=="
-			<< "\n";
+		<< "\n";
 	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
 	cout << "\t\t\t\t\t" << "1.Adiciona Dissertacao\n";
 	cout << "\t\t\t\t\t" << "2.Edita Dissertacao\n";
@@ -302,8 +303,8 @@ void ThesisSolver::gestaoDissertacoes(){
 			cout << "Indique a opcao desejada: ";
 			getline(cin, choice);
 			if (choice.length() == 1
-					&& (choice == "1" || choice == "2" || choice == "3"
-							|| choice == "4"))
+				&& (choice == "1" || choice == "2" || choice == "3"
+				|| choice == "4"))
 				break;
 			cout << "Opção invalido, insira uma opção novamente." << endl;
 		}
@@ -330,7 +331,7 @@ void ThesisSolver::gestaoSupervisores(){
 	cout << endl;
 	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
 	cout << "\t\t\t\t\t" << "==" << "Gestao de Dissertacoes" << "=="
-			<< "\n";
+		<< "\n";
 	cout << "\t\t\t\t\t" << setfill('=') << setw(32) << "\n";
 	cout << "\t\t\t\t\t" << "1.Adiciona Supervisor\n";
 	cout << "\t\t\t\t\t" << "2.Edita Supervisor\n";
@@ -346,8 +347,8 @@ void ThesisSolver::gestaoSupervisores(){
 			cout << "Indique a opcao desejada: ";
 			getline(cin, choice);
 			if (choice.length() == 1
-					&& (choice == "1" || choice == "2" || choice == "3"
-							|| choice == "4"))
+				&& (choice == "1" || choice == "2" || choice == "3"
+				|| choice == "4"))
 				break;
 			cout << "Opção invalido, insira uma opção novamente." << endl;
 		}
@@ -387,25 +388,6 @@ Entity * ThesisSolver::desempata(Entity* aluno1, Entity* aluno2, Entity* dissert
 	return NULL;
 }
 
-void ThesisSolver::solver2()
-{//supervisor size > thesis size
-	vector<vector<int>> matrix;
-
-	for (int supIT= 0; supIT<supervisors.size();supIT++){
-	for (int theIT = 0; theIT<supervisors.size();theIT++)		
-		{	
-			int custo = INT_MAX;
-			if (theIT<dissertations.size())
-			{
-				int custo = (supervisors[supIT])->getCost(dissertations[theIT]);
-			}
-			matrix[supIT].push_back(custo);
-
-		}
-	}
-	subtractSmallestRow(matrix);
-}
-
 void ThesisSolver::convertIdsToEntitys()
 {
 	vector<Entity*>::iterator it;
@@ -433,26 +415,28 @@ void ThesisSolver::convertIdsToEntitys()
 
 void ThesisSolver::subtractSmallestRow(vector<vector<int>> & matrix )
 {	vector <int> smallest;
-	for (unsigned int j = 0; j < matrix.size(); j++)
-	{
-		int smallestNumber = matrix[j][0];
-		for (int i = 0; i < matrix[j].size();i++)
+for (unsigned j = 0; j < matrix.size(); j++)
+{
+	int smallestNumber = matrix[j][0];
+	for (int i = 0; i < matrix[j].size();i++)
+	{	
+		int compare1 = (matrix[j][i]);
+		int compare2 = smallest[j];
+		if (compare1 < compare2)
 		{
-			if (matrix[j][i] < smallest)
-			{
-				smallestNumber = matrix[j][i];
-			}
+			smallestNumber = matrix[j][i];
 		}
-		smallest.push_back(smallestNumber);
 	}
+	smallest.push_back(smallestNumber);
+}
 
-	for (int j = 0; j < smallest.size(); j++)
+for (int j = 0; j < smallest.size(); j++)
+{
+	for (int i = 0; i < matrix[j].size();i++)
 	{
-		for (int i = 0; i < matrix[j].size();i++)
-		{
-			matrix[j][i] = matrix[j][i] - smallest[j];
-		}
+		matrix[j][i] = matrix[j][i] - smallest[j];
 	}
+}
 }
 
 void ThesisSolver::subtractSmallestColumn(vector<vector<int>> & matrix )
@@ -463,7 +447,7 @@ void ThesisSolver::subtractSmallestColumn(vector<vector<int>> & matrix )
 		int smallestNumber = matrix[0][j];
 		for (int i = 0; i < matrix[j].size();i++)
 		{
-			if (matrix[i][j] < smallest)
+			//if ((matrix[i][j]) < smallest)
 			{
 				smallestNumber = matrix[i][j];
 			}
@@ -499,4 +483,325 @@ void ThesisSolver::atribuirTeses(){
 		aluno = checkEnd();
 	}
 }
+
+void ThesisSolver::findZero( vector<vector<int>> & matrix, vector<vector<int>> & mask,vector<int> & rowCover, vector<int> & colCover )
+{	
+
+	for (int r = 0; r < matrix.size();r++)
+	{
+		for (int col = 0; r<matrix.size();col++)
+		{
+			if(matrix[r][col] == 0 && rowCover[r] == 0 && colCover[col] == 0){
+				mask[r][col] = 1;
+				rowCover[r] = 1;
+				colCover[col] = 1;
+			}
+		}
+	}
+	clear_covers(matrix.size(),colCover,rowCover);
+}
+
+int ThesisSolver::countStarred( vector<vector<int>>& matrix, vector<vector<int>> & mask, vector<int> & rowCover, vector<int>& colCover)
+{
+	int colcount = 0;
+	for (int r = 0; r< matrix.size(); r++)
+	{
+		for (int c = 0; c<matrix.size();c++)
+		{
+			if (mask[r][c] == 1)
+			{
+				colCover[c] = 1;
+			}
+		}
+	}
+	for (int c = 0; c<matrix.size();c++)
+	{
+		if (colCover[c] == 1)
+		{
+			colcount++;
+		}
+	}
+	if (colcount >= matrix.size())
+		return 1;
+	else
+		return 2;
+}
+
+void ThesisSolver::solver2()
+{ 
+	//supervisor size > thesis size
+	vector<vector<int>> matrix;
+	vector<vector<int>> mask;
+	vector <int> rowCover,colCover;
+	int step = 0;
+	int path_col0, path_row0;
+	bool done = false;
+	for (int supIT= 0; supIT<supervisors.size();supIT++){
+		rowCover.push_back(0);
+		colCover.push_back(0);
+		for (int theIT = 0; theIT<supervisors.size();theIT++)		
+		{	
+			int custo = INT_MAX;
+			if (theIT<dissertations.size())
+			{
+				int custo = (supervisors[supIT])->getCost(dissertations[theIT]);
+			}
+			mask[supIT].push_back(0);
+			matrix[supIT].push_back(custo);
+		}
+	}
+	subtractSmallestRow(matrix);
+	findZero(matrix,mask, rowCover,colCover);
+
+	while(!done){
+
+		switch(step){
+		case 0:
+			step = countStarred(matrix,mask,rowCover,colCover);
+			break;
+		case 1:
+			//end
+			done = true;
+			break;
+		case 2:
+			step = prime(matrix,mask,rowCover,colCover,path_row0,path_col0);
+			break;
+		case 3:
+			step = matching(mask, rowCover,colCover,path_row0,path_col0);
+			break;
+		case 4:
+			step = adjustCost(matrix, rowCover,colCover);
+			break;
+
+		}
+	}
+
+}
+
+int ThesisSolver::prime( vector<vector<int>> &matrix, vector<vector<int>> &mask, vector<int> &rowCover, vector<int> &colCover, int &path_row0, int & path_col0  )
+{
+	int row = -1;
+	int col = -1;
+	bool done = false;
+
+	while(!done){
+		find_a_zero( row, col, matrix,rowCover,colCover);
+		if (row==-1)
+		{
+			done=true;
+			return 4;
+		}
+		else{
+			mask[row][col] = 2;
+			if (star_in_row(row, mask))
+			{
+				find_star_row(row, col,mask);
+				rowCover[row]=1;
+				colCover[col]=0;
+			}
+			else
+			{
+				done=true;
+				path_col0=col;
+				path_row0=row;
+				return 3;
+			}
+		}
+	}
+}
+
+void ThesisSolver::find_a_zero( int & row, int & col , vector<vector<int>> &matrix , vector<int> rowCover,vector<int> colCover)
+{
+	int r = 0;
+	int c;
+	bool done=false;
+	row = -1;
+	col = -1;
+	while(!done){
+		c=0;
+		while(true){
+			if (matrix[r][c] == 0 && rowCover[r] == 0 && colCover[c] == 0)
+			{
+				row=r;
+				col=c;
+				done=true;
+			}
+			c++;
+			if (c>= matrix.size() || done)
+			{
+				break;
+			}
+		}
+		r++;
+		if (r>=matrix.size())
+		{
+			done=true;
+		}
+	}
+}
+
+bool ThesisSolver::star_in_row( int row, vector<vector<int>> mask)
+{
+	bool temp = false;
+	for (int c = 0; c<mask.size();c++)
+	{
+		if (mask[row][c] == 1)
+		{
+			temp=true;
+		}
+	}
+	return temp;
+}
+
+void ThesisSolver::find_star_row( int row, int & col,vector<vector<int>> mask )
+{
+	col = -1;
+	for (int c = 0; c<mask.size();c++)
+	{
+		if (mask[row][c] == 1)
+		{
+			col = c;
+		}
+	}
+}
+
+int ThesisSolver::matching( vector<vector<int>> &mask, vector<int> &rowCover, vector<int> &colCover, int &path_row0, int &path_col0 )
+{	
+	bool done=false;
+	int r=-1;
+	int c=-1;
+	int path_count =1;
+	vector<vector<int>> path;
+	path[0].push_back(path_row0);
+	path[0].push_back(path_col0);
+
+	while(!done){
+		find_star_col(mask,path[path_count-1][1], r);
+		if (r>-1)
+		{
+			path_count++;
+			path[path_count-1][0]=r;
+			path[path_count-1][1]=path[path_count-2][1];
+		}
+		else{
+			done=true;
+		}
+		if (!done)
+		{
+			find_prime_row(mask,path[path_count-1][0], c);
+			vector <int> tempor;
+			tempor.push_back(path[path_count-1][0]);
+
+			tempor.push_back(path[path_count-1][0]);
+			tempor.push_back(c);
+			path_count++;
+			path.push_back(tempor);
+		}
+	}
+	augment_path(path_count, mask,path);
+	clear_covers(mask.size(), colCover,rowCover);
+	erase_primes(mask.size(),mask);
+	return 0;
+}
+
+void ThesisSolver::find_star_col( vector<vector<int>> & mask,int path, int &r )
+{
+	r=-1;
+	for (int i = 0; i< mask.size();i++)
+	{
+		if (mask[i][path] == 1)
+		{
+			r=1;
+		}
+	}
+}
+
+void ThesisSolver::find_prime_row( vector<vector<int>> & mask, int path, int &c )
+{
+	for (int j = 0; mask.size();j++)
+	{
+		if (mask[path][j] == 2)
+		{
+			c = j;
+		}
+	}
+}
+
+void ThesisSolver::augment_path(int path_count, vector<vector<int>> & mask, vector <vector<int>> path)
+{
+	for (int p = 0; p<path_count; p++)
+	{
+		if (mask[path[p][0]][path[p][1]] == 1)
+		{
+			mask[path[p][0]][path[p][1]] = 0;
+		}else
+		{
+			mask[path[p][0]][path[p][1]]=1;
+		}
+	}
+}
+
+void ThesisSolver::clear_covers(int size, vector<int> &colCover, vector<int> &rowCover )
+{
+	for (int r = 0; r< size;r++)
+	{
+		rowCover[r]=0;
+		colCover[r]=0;
+	}
+}
+
+void ThesisSolver::erase_primes(int size, vector<vector<int>> & mask)
+{
+	for (int r= 0; r<size;r++)
+	{
+		for (int c = 0 ; c<size; c++)
+		{
+			if (mask[r][c] == 2)
+			{
+				mask[r][c] = 0;
+			}
+		}
+	}
+}
+
+int ThesisSolver::adjustCost( vector<vector<int>> & matrix, vector<int> rowCover, vector<int> colCover )
+{
+	int min = INT_MAX;
+	find_smallest( min, matrix,rowCover,colCover);
+	for (int r = 0; r<matrix.size();r++)
+	{
+		for (int c = 0; c < matrix.size();c++)
+		{
+			if (rowCover[r]==1)
+			{
+				matrix[r][c] += min; 
+			}
+			if (colCover[c] == 0)
+			{
+				matrix[r][c] -= min;
+			}
+		}
+	}
+	return 2;
+}
+
+void ThesisSolver::find_smallest( int &min, vector<vector<int>> & matrix, vector<int> rowCover, vector<int> colCover )
+{
+	for (int r = 0; r<matrix.size();r++)
+	{
+		for (int c = 0; c < matrix.size();c++)
+		{
+			if (rowCover[r]==0 && colCover[c]==0)
+			{
+				if (min > matrix[r][c])
+				{
+					min=matrix[r][c];
+
+				}
+			}
+		}
+	}
+}
+
+
 
