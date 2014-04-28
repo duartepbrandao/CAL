@@ -14,7 +14,10 @@ int main (){
 
 	solution->printSolution1();
 
-	//solution->saveFile();
+	//solution->solver2();
+
+	solution->saveFile();
+	solution->visualizador();
 
 	cout<<"\nreading done!"<<endl;
 	system("pause");

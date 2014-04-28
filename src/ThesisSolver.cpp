@@ -114,42 +114,30 @@ void ThesisSolver::readFiles() {
 void ThesisSolver::saveFile() {
 	ofstream fileSave("Preferencies Saved.txt");
 
-	fileSave << "Students Information\n\n" << "Name\t" << "preferencies\n";
+	fileSave << students.size() << "," << dissertations.size() << "," << 0 << endl;
 
-	for(vector<Entity*>::iterator it = students.begin(); it!=students.end(); it++){
-		fileSave << (*it)->getName() << '\t';
-		for(unsigned int i=0; i<(*it)->getPreferencesID().size(); i++){
-			fileSave << (*it)->getPreferencesID()[i];
-			if(i+1<(*it)->getPreferencesID().size()) fileSave << ",";
+		for(vector<Entity*>::iterator it = students.begin(); it!=students.end(); it++){
+			fileSave << (*it)->getName() << '\t';
+			if((*it)->getPair()!=NULL) fileSave << (*it)->getPair()->getID();
+			else fileSave << "0";
+			fileSave << endl;
 		}
-		fileSave << endl;
-	}
 
-	fileSave << "---------------------\n\n\n" << "Projects Information\n\n" << "Name\t" << "preferencies\n";
-
-	for(vector<Entity*>::iterator it = dissertations.begin(); it!=dissertations.end(); it++){
-		fileSave << (*it)->getName() << '\t';
-		for(unsigned int i=0; i<(*it)->getPreferencesID().size(); i++){
-			fileSave << (*it)->getPreferencesID()[i];
-			if(i+1<(*it)->getPreferencesID().size()) fileSave << ",";
+		for(vector<Entity*>::iterator it = dissertations.begin(); it!=dissertations.end(); it++){
+			fileSave << (*it)->getName() << '\t';
+			if((*it)->getPair()!=NULL) fileSave << (*it)->getPair()->getID();
+			else fileSave << "0";
+			fileSave << endl;
 		}
-		fileSave << endl;
-	}
 
-	fileSave << "---------------------\n\n\n" << "Supervisors Information\n\n" << "Name\t" << "preferencies\n";
+		/*for(vector<Entity*>::iterator it = supervisors.begin(); it!=supervisors.end(); it++){
+			fileSave << (*it)->getName() << '\t';
+			if((*it)->getPair()!=NULL) fileSave << (*it)->getPair()->getID();
+			else fileSave << "0";
+			fileSave << endl;
+		}*/
 
-	for(vector<Supervisor*>::iterator it = supervisors.begin(); it!=supervisors.end(); it++){
-		fileSave << (*it)->getName() << '\t';
-		for(unsigned int i=0; i<(*it)->getPreferencesID().size(); i++){
-			fileSave << (*it)->getPreferencesID()[i];
-			if(i+1<(*it)->getPreferencesID().size()) fileSave << ",";
-		}
-		fileSave << endl;
-	}
-
-	fileSave << "---------------------\n";
-
-	fileSave.close();
+		fileSave.close();
 }
 
 
@@ -232,7 +220,7 @@ ThesisSolver::ThesisSolver() {
 
 Entity * ThesisSolver::checkEnd() { //true se ainda nao terminou
 	for (vector<Entity*>::iterator it = students.begin(); it != students.end(); it++) {
-		if((*it)->isPaired()==false && (*it)->getPreferencesID().size()!=0)
+		if((*it)->isPaired()!=true && (*it)->getPreferencesID().size()!=0)
 			return (*it);
 	}
 	return NULL;
@@ -369,7 +357,7 @@ void ThesisSolver::gestaoSupervisores(){
 			return;
 		}
 	}
-};
+}
 
 Entity * ThesisSolver::desempata(Entity* aluno1, Entity* aluno2, Entity* dissertacao){
 	int id1 = aluno1->getID();
@@ -413,7 +401,7 @@ void ThesisSolver::convertIdsToEntitys()
 	}
 }
 
-void ThesisSolver::subtractSmallestRow(vector<vector<int>> & matrix )
+void ThesisSolver::subtractSmallestRow(vector<vector<int> > & matrix )
 {	vector <int> smallest;
 for (unsigned j = 0; j < matrix.size(); j++)
 {
@@ -439,7 +427,7 @@ for (int j = 0; j < smallest.size(); j++)
 }
 }
 
-void ThesisSolver::subtractSmallestColumn(vector<vector<int>> & matrix )
+void ThesisSolver::subtractSmallestColumn(vector<vector<int> > & matrix )
 {	
 	vector <int> smallest;
 	for (int j = 0; j < supervisors.size(); j++)
@@ -485,7 +473,7 @@ void ThesisSolver::atribuirTeses(){
 	}
 }
 
-void ThesisSolver::findZero( vector<vector<int>> & matrix, vector<vector<int>> & mask,vector<int> & rowCover, vector<int> & colCover )
+void ThesisSolver::findZero( vector<vector<int> > & matrix, vector<vector<int> > & mask,vector<int> & rowCover, vector<int> & colCover )
 {	
 
 	for (int r = 0; r < matrix.size();r++)
@@ -502,7 +490,7 @@ void ThesisSolver::findZero( vector<vector<int>> & matrix, vector<vector<int>> &
 	clear_covers(matrix.size(),colCover,rowCover);
 }
 
-int ThesisSolver::countStarred( vector<vector<int>>& matrix, vector<vector<int>> & mask, vector<int> & rowCover, vector<int>& colCover)
+int ThesisSolver::countStarred( vector<vector<int> >& matrix, vector<vector<int> > & mask, vector<int> & rowCover, vector<int>& colCover)
 {
 	int colcount = 0;
 	for (int r = 0; r< matrix.size(); r++)
@@ -532,8 +520,8 @@ void ThesisSolver::solver2()
 { 
 	//supervisor size > thesis size
 	//line supervisor, column task
-	vector<vector<int>> matrix;
-	vector<vector<int>> mask;
+	vector<vector<int> > matrix;
+	vector<vector<int> > mask;
 	vector <int> rowCover,colCover;
 	int step = 0;
 	int path_col0, path_row0;
@@ -590,7 +578,7 @@ void ThesisSolver::solver2()
 
 }
 
-int ThesisSolver::prime( vector<vector<int>> &matrix, vector<vector<int>> &mask, vector<int> &rowCover, vector<int> &colCover, int &path_row0, int & path_col0  )
+int ThesisSolver::prime( vector<vector<int> > &matrix, vector<vector<int> > &mask, vector<int> &rowCover, vector<int> &colCover, int &path_row0, int & path_col0  )
 {
 	int row = -1;
 	int col = -1;
@@ -622,7 +610,7 @@ int ThesisSolver::prime( vector<vector<int>> &matrix, vector<vector<int>> &mask,
 	}
 }
 
-void ThesisSolver::find_a_zero( int & row, int & col , vector<vector<int>> &matrix , vector<int> rowCover,vector<int> colCover)
+void ThesisSolver::find_a_zero( int & row, int & col , vector<vector<int> > &matrix , vector<int> rowCover,vector<int> colCover)
 {
 	int r = 0;
 	int c;
@@ -652,7 +640,7 @@ void ThesisSolver::find_a_zero( int & row, int & col , vector<vector<int>> &matr
 	}
 }
 
-bool ThesisSolver::star_in_row( int row, vector<vector<int>> mask)
+bool ThesisSolver::star_in_row( int row, vector<vector<int> > mask)
 {
 	bool temp = false;
 	for (int c = 0; c<mask.size();c++)
@@ -665,7 +653,7 @@ bool ThesisSolver::star_in_row( int row, vector<vector<int>> mask)
 	return temp;
 }
 
-void ThesisSolver::find_star_row( int row, int & col,vector<vector<int>> mask )
+void ThesisSolver::find_star_row( int row, int & col,vector<vector<int> > mask )
 {
 	col = -1;
 	for (int c = 0; c<mask.size();c++)
@@ -677,13 +665,13 @@ void ThesisSolver::find_star_row( int row, int & col,vector<vector<int>> mask )
 	}
 }
 
-int ThesisSolver::matching( vector<vector<int>> &mask, vector<int> &rowCover, vector<int> &colCover, int &path_row0, int &path_col0 )
+int ThesisSolver::matching( vector<vector<int> > &mask, vector<int> &rowCover, vector<int> &colCover, int &path_row0, int &path_col0 )
 {	
 	bool done=false;
 	int r=-1;
 	int c=-1;
 	int path_count =1;
-	vector<vector<int>> path;
+	vector<vector<int> > path;
 	path[0].push_back(path_row0);
 	path[0].push_back(path_col0);
 
@@ -716,7 +704,7 @@ int ThesisSolver::matching( vector<vector<int>> &mask, vector<int> &rowCover, ve
 	return 0;
 }
 
-void ThesisSolver::find_star_col( vector<vector<int>> & mask,int path, int &r )
+void ThesisSolver::find_star_col( vector<vector<int> > & mask,int path, int &r )
 {
 	r=-1;
 	for (int i = 0; i< mask.size();i++)
@@ -728,7 +716,7 @@ void ThesisSolver::find_star_col( vector<vector<int>> & mask,int path, int &r )
 	}
 }
 
-void ThesisSolver::find_prime_row( vector<vector<int>> & mask, int path, int &c )
+void ThesisSolver::find_prime_row( vector<vector<int> > & mask, int path, int &c )
 {
 	for (int j = 0; mask.size();j++)
 	{
@@ -739,7 +727,7 @@ void ThesisSolver::find_prime_row( vector<vector<int>> & mask, int path, int &c 
 	}
 }
 
-void ThesisSolver::augment_path(int path_count, vector<vector<int>> & mask, vector <vector<int>> path)
+void ThesisSolver::augment_path(int path_count, vector<vector<int> > & mask, vector <vector<int> > path)
 {
 	for (int p = 0; p<path_count; p++)
 	{
@@ -762,7 +750,7 @@ void ThesisSolver::clear_covers(int size, vector<int> &colCover, vector<int> &ro
 	}
 }
 
-void ThesisSolver::erase_primes(int size, vector<vector<int>> & mask)
+void ThesisSolver::erase_primes(int size, vector<vector<int>  > & mask)
 {
 	for (int r= 0; r<size;r++)
 	{
@@ -776,7 +764,7 @@ void ThesisSolver::erase_primes(int size, vector<vector<int>> & mask)
 	}
 }
 
-int ThesisSolver::adjustCost( vector<vector<int>> & matrix, vector<int> rowCover, vector<int> colCover )
+int ThesisSolver::adjustCost( vector<vector<int> > & matrix, vector<int> rowCover, vector<int> colCover )
 {
 	int min = INT_MAX;
 	find_smallest( min, matrix,rowCover,colCover);
@@ -797,7 +785,7 @@ int ThesisSolver::adjustCost( vector<vector<int>> & matrix, vector<int> rowCover
 	return 2;
 }
 
-void ThesisSolver::find_smallest( int &min, vector<vector<int>> & matrix, vector<int> rowCover, vector<int> colCover )
+void ThesisSolver::find_smallest( int &min, vector<vector<int> > & matrix, vector<int> rowCover, vector<int> colCover )
 {
 	for (int r = 0; r<matrix.size();r++)
 	{
@@ -821,16 +809,109 @@ void ThesisSolver::printSolution1()
 	for (vector <Entity*>::iterator it = students.begin(); it != students.end(); it++)
 	{	
 		cout<<"for";
-		
+
 		if(((*it)->getPair()) != NULL){
 		cout<<(*it)->getName()<<" gets "<< ((*it)->getPair())->getName()<<endl;
 		}
 		else{
 			cout<<(*it)->getName()<<" is not matched "<<endl;
 		}
-		
+
 	}
 }
 
+
+void ThesisSolver::visualizador() {
+	GraphViewer *gv = new GraphViewer(1000, 1000, false);
+	gv->createWindow(1000, 1000);
+	gv->defineEdgeColor("black");
+
+	ifstream readFile; //read the content of a file
+	string content; // temporary information string
+	vector<int> prefes;
+
+	//start reading
+	readFile.open("Preferencies Saved.txt");
+
+
+
+	if (readFile.fail())
+		readFile.close();
+
+	else{
+		int numEnt[3], numE=0, idNo=1, X=100, Y=100, phase=1;
+
+		getline(readFile,content,',');
+		numEnt[0]=atoi(content.c_str());
+		getline(readFile,content,',');
+		numEnt[1]=atoi(content.c_str());
+		getline(readFile,content);
+		numEnt[2]=atoi(content.c_str());
+
+		for(int j=1; j<4; j++){
+			Y=100*j;
+			for(int i=1; i<numEnt[numE]+1; i++){
+				//guarda dados do ficheiro
+				getline(readFile, content);
+				string name = content.substr(0, content.find('\t'));
+				content.erase(0, content.find('\t') + 1);
+
+				int pos;
+				if (content.find_first_of(',') < INT_MAX)
+					pos = content.find(',');
+				else pos = content.size();
+
+				if(content.size() != 0)
+					prefes.push_back(atoi(content.substr(0, pos).c_str()));
+				else prefes.push_back(0);
+				//guardou os dados relativos ao primeiro
+
+				X=100*i;
+				gv->addNode(idNo,Y,X);
+				switch(phase){
+				case 1:
+					gv->setVertexColor(idNo, "red");
+					break;
+				case 2:
+					gv->setVertexColor(idNo, "blue");
+					break;
+				default:
+					gv->setVertexColor(idNo, "green");
+					break;
+				}
+				gv->setVertexLabel(idNo, name);
+				idNo++;
+			}
+			phase++;
+			numE++;
+		}
+
+		numE=0; phase=1; idNo=1;
+		for(int j=1; j<4; j++){
+			for(int i=1; i<numEnt[numE]+1; i++){
+				if(prefes[idNo-1]!=0)
+					gv->addEdge(idNo,idNo,prefes[idNo-1], EdgeType::UNDIRECTED);
+				switch(phase){
+				case 1:
+					gv->setEdgeColor(idNo, "red");
+					break;
+				case 2:
+					gv->setEdgeColor(idNo, "blue");
+					break;
+				default:
+					gv->setEdgeColor(idNo, "green");
+					break;
+				}
+				idNo++;
+			}
+			phase++;
+			numE++;
+		}
+	}
+
+	readFile.close();
+
+	gv->rearrange();
+}
 
 
