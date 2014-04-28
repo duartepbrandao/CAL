@@ -12,8 +12,9 @@ int main (){
 
 	solution->atribuirTeses();
 
-	solution->solver2();
-	//solution->printSolution1();
+	//solution->solver2();
+
+	solution->printSolution1();
 
 	//solution->solver2();
 
@@ -23,5 +24,5 @@ int main (){
 	cout<<"\nreading done!"<<endl;
 	system("pause");
 
-return 1;
+	return 1;
 }

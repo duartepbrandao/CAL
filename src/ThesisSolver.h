@@ -30,8 +30,6 @@ private:
 	vector<Supervisor*> supervisors;
 
 public:
-	
-
 	ThesisSolver();
 	void assignVectors();
 	void readFiles();
@@ -55,6 +53,7 @@ public:
 	void findZero( vector<vector<int> > & matrix, vector<vector<int> > & mask,vector<int> & rowCover, vector<int> & colCover );
 	vector<Entity*> getStudents();
 	void setStudents(vector<Entity*> vec);
+	void visualizador();
 	int prime( vector<vector<int> > &matrix, vector<vector<int> > &mask, vector<int> &rowCover, vector<int> &colCover, int &path_row0, int & path_col0 );
 	void find_a_zero( int & row, int & col , vector<vector<int> > &matrix , vector<int> rowCover,vector<int> colCover);
 	bool star_in_row( int row, vector<vector<int> > mask);
@@ -69,5 +68,6 @@ public:
 	void find_smallest( int &min, vector<vector<int> > & matrix, vector<int> rowCover, vector<int> colCover );
 	void printSolution1();
 	void printSolution2();
-	void print_matrix( vector<vector<int>> matrix );
+	void print_matrix( vector<vector<int> > matrix );
+};
 #endif /* THESISSOLVER_H_ */

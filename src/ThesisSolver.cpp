@@ -685,7 +685,7 @@ int ThesisSolver::matching( vector<vector<int> > &mask, vector<int> &rowCover, v
 	int c=-1;
 	int path_count =1;
 
-	vector<vector<int>> path;
+	vector<vector<int> > path;
 	vector<int> temp;
 	temp.push_back(path_row0);
 	temp.push_back(path_col0);
@@ -932,7 +932,7 @@ void ThesisSolver::visualizador() {
 }
 
 
-void ThesisSolver::print_matrix( vector<vector<int>> mask )
+void ThesisSolver::print_matrix( vector<vector<int> > mask )
 {
 	for (int r = 0; r < mask.size(); r++)
 	{
