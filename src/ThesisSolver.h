@@ -69,5 +69,6 @@ public:
 	void find_smallest( int &min, vector<vector<int>> & matrix, vector<int> rowCover, vector<int> colCover );
 	void printSolution1();
 	void printSolution2();
+	void print_matrix( vector<vector<int>> matrix );
 };
 #endif /* THESISSOLVER_H_ */

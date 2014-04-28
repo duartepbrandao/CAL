@@ -12,7 +12,8 @@ int main (){
 
 	solution->atribuirTeses();
 
-	solution->printSolution1();
+	solution->solver2();
+	//solution->printSolution1();
 
 	//solution->saveFile();
 
