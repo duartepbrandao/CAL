@@ -15,9 +15,6 @@ int main (){
 	//solution->solver2();
 
 	solution->printSolution1();
-
-	//solution->solver2();
-
 	solution->saveFile();
 	solution->visualizador();
 
