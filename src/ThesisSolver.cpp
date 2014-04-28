@@ -101,7 +101,7 @@ void ThesisSolver::readFiles() {
 				}
 				break;
 			}
-			if (phase == 3) break;
+			//if (phase == 3) break;
 			getline(readFile, content);
 		}
 		if (phase == 3) break;
@@ -409,7 +409,7 @@ for (unsigned j = 0; j < matrix.size(); j++)
 	for (int i = 0; i < matrix[j].size();i++)
 	{	
 		int compare1 = (matrix[j][i]);
-		int compare2 = smallest[j];
+		int compare2 = smallestNumber;
 		if (compare1 < compare2)
 		{
 			smallestNumber = matrix[j][i];
@@ -417,7 +417,6 @@ for (unsigned j = 0; j < matrix.size(); j++)
 	}
 	smallest.push_back(smallestNumber);
 }
-
 for (int j = 0; j < smallest.size(); j++)
 {
 	for (int i = 0; i < matrix[j].size();i++)
@@ -475,10 +474,9 @@ void ThesisSolver::atribuirTeses(){
 
 void ThesisSolver::findZero( vector<vector<int> > & matrix, vector<vector<int> > & mask,vector<int> & rowCover, vector<int> & colCover )
 {	
-
 	for (int r = 0; r < matrix.size();r++)
 	{
-		for (int col = 0; r<matrix.size();col++)
+		for (int col = 0; col<matrix.size();col++)
 		{
 			if(matrix[r][col] == 0 && rowCover[r] == 0 && colCover[col] == 0){
 				mask[r][col] = 1;
@@ -520,29 +518,42 @@ void ThesisSolver::solver2()
 { 
 	//supervisor size > thesis size
 	//line supervisor, column task
+
 	vector<vector<int> > matrix;
 	vector<vector<int> > mask;
+	convertIdsToEntitys();
 	vector <int> rowCover,colCover;
 	int step = 0;
 	int path_col0, path_row0;
 	bool done = false;
+	cout<<"size"<<endl;
+	cout<<supervisors.size()<<endl;
+	vector<int> mask_line;
+	vector<int> matrix_line;
 	for (int supIT= 0; supIT<supervisors.size();supIT++){
 		rowCover.push_back(0);
 		colCover.push_back(0);
+		
 		for (int theIT = 0; theIT<supervisors.size();theIT++)		
 		{	
 			int custo = INT_MAX;
 			if (theIT<dissertations.size())
-			{
-				int custo = (supervisors[supIT])->getCost(dissertations[theIT]);
-			}
-			mask[supIT].push_back(0);
-			matrix[supIT].push_back(custo);
+			{		
+				custo = (supervisors[supIT])->getCost(dissertations[theIT]);
+			}			
+			mask_line.push_back(0);
+			matrix_line.push_back(custo);
 		}
+		matrix.push_back(matrix_line);
+		mask.push_back(mask_line);
+		matrix_line.clear();
+		mask_line.clear();
 	}
+	print_matrix(matrix);
 	subtractSmallestRow(matrix);
-	findZero(matrix,mask, rowCover,colCover);
 
+	findZero(matrix,mask, rowCover,colCover);
+	
 	while(!done){
 
 		switch(step){
@@ -555,6 +566,7 @@ void ThesisSolver::solver2()
 			break;
 		case 2:
 			step = prime(matrix,mask,rowCover,colCover,path_row0,path_col0);
+									cout<<"cenas";
 			break;
 		case 3:
 			step = matching(mask, rowCover,colCover,path_row0,path_col0);
@@ -564,18 +576,19 @@ void ThesisSolver::solver2()
 			break;
 		}
 	}
+
 	//solution is in mask;
 	for (int r = 0; r < mask.size(); r++)
 	{
 		for (int c = 0; c < mask.size(); c++)
 		{	//if mask [c][r] == 1, thats the solution
 			if (mask[c][r]==1)
-			{
+			{	
+				cout<<supervisors[c]->getName()<<" com " <<dissertations[r]->getName()<<endl;
 				(supervisors[c])->setPair(dissertations[r]);
 			}
 		}
 	}
-
 }
 
 int ThesisSolver::prime( vector<vector<int> > &matrix, vector<vector<int> > &mask, vector<int> &rowCover, vector<int> &colCover, int &path_row0, int & path_col0  )
@@ -671,17 +684,22 @@ int ThesisSolver::matching( vector<vector<int> > &mask, vector<int> &rowCover, v
 	int r=-1;
 	int c=-1;
 	int path_count =1;
-	vector<vector<int> > path;
-	path[0].push_back(path_row0);
-	path[0].push_back(path_col0);
 
+	vector<vector<int>> path;
+	vector<int> temp;
+	temp.push_back(path_row0);
+	temp.push_back(path_col0);
+	path.push_back(temp);
+	temp.clear();
 	while(!done){
 		find_star_col(mask,path[path_count-1][1], r);
 		if (r>-1)
 		{
 			path_count++;
-			path[path_count-1][0]=r;
-			path[path_count-1][1]=path[path_count-2][1];
+			temp.push_back(r);
+			temp.push_back(path[path_count-2][1]);
+			path.push_back(temp);
+			temp.clear();
 		}
 		else{
 			done=true;
@@ -811,7 +829,7 @@ void ThesisSolver::printSolution1()
 		cout<<"for";
 
 		if(((*it)->getPair()) != NULL){
-		cout<<(*it)->getName()<<" gets "<< ((*it)->getPair())->getName()<<endl;
+			cout<<(*it)->getName()<<" gets "<< ((*it)->getPair())->getName()<<endl;
 		}
 		else{
 			cout<<(*it)->getName()<<" is not matched "<<endl;
@@ -819,7 +837,6 @@ void ThesisSolver::printSolution1()
 
 	}
 }
-
 
 void ThesisSolver::visualizador() {
 	GraphViewer *gv = new GraphViewer(1000, 1000, false);
@@ -915,3 +932,14 @@ void ThesisSolver::visualizador() {
 }
 
 
+void ThesisSolver::print_matrix( vector<vector<int>> mask )
+{
+	for (int r = 0; r < mask.size(); r++)
+	{
+		for (int c = 0; c < mask.size(); c++)
+		{
+			cout<<mask[r][c]<<" ";
+		}
+		cout<<endl;	
+	}
+}
