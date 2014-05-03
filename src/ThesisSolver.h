@@ -70,4 +70,5 @@ public:
 	void printSolution1();
 	void printSolution2();
 	void print_matrix( vector<vector<int>> matrix );
+	void visualizador();};
 #endif /* THESISSOLVER_H_ */
