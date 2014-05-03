@@ -58,8 +58,9 @@ void Entity::setName( std::string name )
 
 void Entity::setPair( Entity* pair )
 {
-	paired=true;
 	this->pair=pair;
+	if(pair==NULL) paired=false;
+	else paired = true;
 }
 
 void Entity::setPaired( bool paired )
