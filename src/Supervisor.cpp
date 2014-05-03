@@ -27,7 +27,7 @@ int Supervisor::getMaxSupervisions()
 
 int Supervisor::getCost( Entity* thesis )
 {
-	for (int i = 0; i < preferences.size(); i++)
+	for (unsigned i = 0; i < preferences.size(); i++)
 	{	
 		if (thesis->getID()==preferences[i]->getID())
 		{	

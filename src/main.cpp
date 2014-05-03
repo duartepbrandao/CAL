@@ -8,18 +8,6 @@ using namespace std;
 int main (){
 	ThesisSolver* solution = new ThesisSolver();
 	solution->readFiles();
-	//solution->menu();
-
-	solution->atribuirTeses();
-
-	//solution->solver2();
-
-	solution->printSolution1();
-	solution->saveFile();
-	solution->visualizador();
-
-	cout<<"\nreading done!"<<endl;
-	system("pause");
-
+	solution->menu();
 	return 1;
 }

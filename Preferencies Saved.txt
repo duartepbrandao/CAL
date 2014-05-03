@@ -1,9 +1,11 @@
-4,4,0
-James	0
-Rodriguez	5
+5,5,0
+James	6
+Rodriguez	8
 Hernano	7
-Candida	8
-Arquitetura	2
-Pintura	0
+Candida	9
+Carlos	0
+Arquiterura	1
 Arte	3
+Pintura	2
 Escultura	4
+Gelo	0
