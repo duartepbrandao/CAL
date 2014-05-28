@@ -44,8 +44,6 @@ public:
 	void gestaoDissertacoes();
 	Entity* getStudentByID(int id);
 	void gestaoSupervisores();
-	void convertIdsToEntitys();
-	void solver2();
 };
 
 #endif /* THESISSOLVER_H_ */
