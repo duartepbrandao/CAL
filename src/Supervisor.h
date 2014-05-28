@@ -9,16 +9,22 @@
 #define SUPERVISOR_H_
 #include "Entity.h"
 #include <iostream>
+#include <climits>
 
 using namespace std;
 
 class Supervisor: public Entity {
-	std::vector<Entity*> supervisoes;
+	int maxSupervisions;
 public:
 	Supervisor();
+	Supervisor(Supervisor* copyEntity);
+	void setMaxSupervisions(int max);
+	int getMaxSupervisions();
+	int getCurrentSupervisions();
 	std::vector<Entity*> getSupervisoes();
 	void addSupervisao(Entity* &supervisao);
 	void removeSupervisao(Entity* &supervisao);
+	int getCost(Entity* thesis);
 
 };
 

@@ -17,26 +17,27 @@ protected:
 	Entity* pair;
 	bool paired;
 	vector <int> preferencesID;
-	vector <Entity*> preferences;
+	vector <Entity *> preferences;
 
 public:
 	Entity();
 	~Entity();
-
+	Entity(string name,int oldId,vector <Entity*> preferences,vector <int> preferencesID);
 	//getters()
 	string getName();
 	int getID();
 	Entity* getPair();
 	bool isPaired();
 	vector <Entity*> getPreferences();
-	vector <int> getPreferencesID();
+	vector <int> & getPreferencesID();
 
 	//setters()
 	void addToPreferencesID(int id);
-	void setName(std::string name);
+	void setName(string name);
 	void setPair(Entity* entety);
 	void setPaired(bool paired);
 	void addToPreferences(Entity* preference);
+	bool teseGostaAluno(Entity * dissertation);
 };
 
 
