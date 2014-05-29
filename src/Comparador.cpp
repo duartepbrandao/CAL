@@ -11,7 +11,7 @@ Comparador::Comparador(){
 	offset = 0;
 }
 void Comparador::menuInicial() {
-
+	
 	
 	original = "original.txt";
 	copia = "copia.txt";
