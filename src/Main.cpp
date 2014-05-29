@@ -15,5 +15,6 @@ int main() {
 	for(unsigned i=0; i<resultado.size(); i++)
 		cout<<resultado[i]<<endl;
 
+	system("pause");
 	return 1;
 }
