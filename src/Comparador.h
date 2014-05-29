@@ -1,8 +1,7 @@
 #ifndef _COMPARADOR_
 #define _COMPARADOR_
 
-#include <string>
-#include <vector>
+#include "Changes.h"
 
 using namespace std;
 
@@ -12,6 +11,7 @@ private:
 	string original, copia;
 	int** matrix;
 	vector <string> lcs;
+	Changes change;
 public:
 	Comparador();
 	void menuInicial();
@@ -23,6 +23,7 @@ public:
 	vector<string> getLCS();
 	void alteraFicheiro();
 	bool start_of_diff(); //returns true and sets the offset if the files are different
-};
+	void print_diff( vector<string> original, vector<string> copia, int i, int j);
+	};
 
 #endif
