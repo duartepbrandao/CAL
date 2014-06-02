@@ -1,29 +1,56 @@
 #include "Changes.h"
 
 
-Changes::Changes()
-	{
-
-	}
+Changes::Changes(){}
 
 void Changes::add( string line, int type, int line_number )
-	{
+{
 	lines.push_back(line);
 	this->type.push_back(type);
 	line_numbers.push_back(line_number);
+}
+
+void Changes::print(){
+	ofstream ficheiro("diferenca.txt", ofstream::out);
+
+	cout << "\n\n\t\t\t" << "REMOVIDO" << endl;
+	ficheiro << "\n\n\t\t\t" << "REMOVIDO" << endl;
+	for(int i=lines.size()-1; i>=0; i--){
+		if(type[i]==0)
+			cout << "- " << line_numbers[i]+1+offset << " " << lines[i] << endl;
+			ficheiro << "- " << line_numbers[i]+1+offset << " " << lines[i] << endl;
 	}
 
-void Changes::print()
-	{}
+	cout << "\n\n\t\t\t" << "ADICIONADO" << endl;
+	ficheiro << "\n\n\t\t\t" << "ADICIONADO" << endl;
+	for(int i = lines.size()-1; i>=0; i--){
+		if(type[i]==1)
+			cout << "+ " << line_numbers[i]+1+offset << " " << lines[i] << endl;
+			ficheiro << "+ " << line_numbers[i]+1+offset << " " << lines[i] << endl;
+	}
 
-vector<string> Changes::getLines(){
-	return lines;
+	cout << "\n\n\t\t\t" << "MANTIDO" << endl;
+	ficheiro << "\n\n\t\t\t" << "MANTIDO" << endl;
+	for(int i=0; i < (int) lines_equal.size(); i++){
+		cout << "\t" << lines_equal[i] << endl;
+		ficheiro << "\t" << lines_equal[i] << endl;
+
+	}
+
+	ficheiro.close();
+
+	cout << endl << "Numero de linhas alteradas: " << type.size() << endl << endl;
 }
 
-vector<int> Changes::getType(){
-	return type;
+void Changes::setEqualOffset(vector<string> similar, int offset){
+	lines_equal = similar;
+	this->offset = offset;
 }
 
-vector<int> Changes::getLine_numbers(){
-	return line_numbers;
+void Changes::clearAttributes(){
+	lines.clear();
+	lines_equal.clear();
+	type.clear();
+	line_numbers.clear();
+	line_numbers_equal.clear();
 }

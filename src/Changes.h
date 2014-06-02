@@ -4,23 +4,22 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
 class Changes{
 private:
-	vector<string> lines;
-	// 1 is add, 0 is remove
-	vector<int> type;
-	vector<int> line_numbers;
+	vector<string> lines, lines_equal;
+	vector<int> type; // 1 is add, 0 is remove
+	vector<int> line_numbers, line_numbers_equal;
+	int offset;
 public:
 	Changes();
 	void add(string line, int type, int line_number);
 	void print();
-	vector<string> getLines();
-	vector<int> getType();
-	vector<int> getLine_numbers();
-	};
-
+	void setEqualOffset(vector<string> similar, int offset);
+	void clearAttributes();
+};
 
 #endif
