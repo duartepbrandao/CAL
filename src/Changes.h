@@ -17,6 +17,9 @@ public:
 	Changes();
 	void add(string line, int type, int line_number);
 	void print();
+	vector<string> getLines();
+	vector<int> getType();
+	vector<int> getLine_numbers();
 	};
 
 

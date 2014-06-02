@@ -11,9 +11,9 @@ private:
 	string original, copia;
 	int** matrix;
 	vector <string> lcs;
-	Changes change;
+	Changes* change;
 public:
-	Comparador();
+	Comparador(Changes *change);
 	void menuInicial();
 	void menuPrincipal();
 	vector<string> sepFrases(string nome);

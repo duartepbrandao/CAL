@@ -7,21 +7,22 @@
 
 using namespace std;
 
-Comparador::Comparador(){
+Comparador::Comparador(Changes* change) : change(change){
 	offset = 0;
 	}
+
 void Comparador::menuInicial() {
 
 	//for debbug 
 	original = "original.txt";
 	copia = "copia.txt";
-	start_of_diff();
+	//start_of_diff();
 	vector<string> vecOrig = sepLinhas("original.txt");
 	vector<string> vecCopia = sepLinhas("copia.txt");
 	calcLCS(vecOrig,vecCopia);
 	//backTrack(vecOrig, vecCopia, vecOrig.size(), vecCopia.size());
 	print_diff(vecOrig, vecCopia, vecOrig.size(), vecCopia.size());
-	change.print();
+	change->print();
 
 	//end of debbug
 
@@ -109,7 +110,6 @@ void Comparador::menuPrincipal() {
 			}
 		}
 	}
-
 
 vector<string> Comparador::sepLinhas(string nome) {
 	vector<string> todasLinhas;
@@ -245,18 +245,15 @@ void Comparador::print_diff( vector<string> original, vector<string> copia, int 
 		} else {
 			if (j > 0 && (i == 0 || matrix[i][j-1] >= matrix[i-1][j] ))
 				{
-				change.add(copia[j-1],1,j-1);
+				change->add(copia[j-1],1,j-1);
 				print_diff(original,copia,i,j-1);
 				}
 			else{
 				if (i>0 && (j==0 || (matrix[i][j-1] < matrix[i-1][j] )))
 					{
-					change.add(original[i-1],0,i-1);
+					change->add(original[i-1],0,i-1);
 					print_diff(original,copia,i-1,j);
 					}
 				}
 		}
 	}
-
-
-

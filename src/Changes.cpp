@@ -14,7 +14,16 @@ void Changes::add( string line, int type, int line_number )
 	}
 
 void Changes::print()
-	{
-	
+	{}
 
-	}
+vector<string> Changes::getLines(){
+	return lines;
+}
+
+vector<int> Changes::getType(){
+	return type;
+}
+
+vector<int> Changes::getLine_numbers(){
+	return line_numbers;
+}
