@@ -11,6 +11,7 @@ private:
 	bool offsetFlag;
 	string original, copia;
 	vector <string> lcs;
+	vector <int> linesEquals;
 	Changes* change;
 public:
 	Comparador(Changes *change);

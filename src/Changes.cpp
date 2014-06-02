@@ -1,7 +1,9 @@
 #include "Changes.h"
 
 
-Changes::Changes(){}
+Changes::Changes(){
+	offset=0;
+}
 
 void Changes::add( string line, int type, int line_number )
 {
@@ -32,19 +34,19 @@ void Changes::print(){
 	cout << "\n\n\t\t\t" << "MANTIDO" << endl;
 	ficheiro << "\n\n\t\t\t" << "MANTIDO" << endl;
 	for(int i=0; i < (int) lines_equal.size(); i++){
-		cout << "\t" << lines_equal[i] << endl;
-		ficheiro << "\t" << lines_equal[i] << endl;
-
+		cout << "  " << line_numbers_equal[i] << " " << lines_equal[i] << endl;
+		ficheiro << "  " << line_numbers_equal[i] << " " << lines_equal[i] << endl;
 	}
 
 	ficheiro.close();
 
-	cout << endl << "Numero de linhas alteradas: " << type.size() << endl << endl;
+	cout << endl << "Numero de alteracoes: " << type.size() << endl << endl;
 }
 
-void Changes::setEqualOffset(vector<string> similar, int offset){
+void Changes::setEqualOffset(vector<string> similar, int offset, vector<int> line_numbers){
 	lines_equal = similar;
 	this->offset = offset;
+	line_numbers_equal = line_numbers;
 }
 
 void Changes::clearAttributes(){
@@ -53,4 +55,5 @@ void Changes::clearAttributes(){
 	type.clear();
 	line_numbers.clear();
 	line_numbers_equal.clear();
+	offset=0;
 }

@@ -18,7 +18,7 @@ public:
 	Changes();
 	void add(string line, int type, int line_number);
 	void print();
-	void setEqualOffset(vector<string> similar, int offset);
+	void setEqualOffset(vector<string> similar, int offset, vector<int> line_numbers);
 	void clearAttributes();
 };
 

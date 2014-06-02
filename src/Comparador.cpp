@@ -51,7 +51,7 @@ void Comparador::menuPrincipal() {
 			if(display){
 				cout << "\t\t\t\t\t" << "#Ficheiro original: " << this->original << endl;
 				cout <<	"\t\t\t\t\t" << "#Ficheiro a comparar: " << this->copia << endl;
-				cout << "\t\t\t\t\t" << "1.Visualizar Diferenças.\n";
+				cout << "\t\t\t\t\t" << "1.Visualizar Diferencas.\n";
 				cout << "\t\t\t\t\t" << "2.Quit\n\n";
 				display = false;
 			}
@@ -61,7 +61,7 @@ void Comparador::menuPrincipal() {
 			getline(cin, choice);
 			if (choice.length() == 1 && (choice == "1" || choice == "2"))
 				break;
-			cout << "Opção invalida, insira uma opção novamente.\n";
+			cout << "Opcao invalida, insira uma opcao novamente.\n";
 		}
 
 		int option = atoi(choice.c_str());
@@ -78,7 +78,7 @@ void Comparador::menuPrincipal() {
 				cout<<lcs.size()<<endl;
 				print_diff(vecOrig, vecCopia, vecOrig.size(), vecCopia.size());
 
-				change->setEqualOffset(lcs, offset);
+				change->setEqualOffset(lcs, offset, linesEquals);
 				change->print();
 
 				clearAttributes();
@@ -126,12 +126,14 @@ vector<string> Comparador::sepLinhas(string nome) {
 
 void Comparador::clearAttributes(){
 	this->offset=0;
+	offsetFlag=true;
 
 	for (unsigned i = 0; i <=sizeof(matrix[0]); i++)
 		delete matrix[i];
 	delete[] this->matrix;
 
 	lcs.clear();
+	linesEquals.clear();
 
 	change->clearAttributes();
 }
@@ -155,6 +157,7 @@ bool Comparador::start_of_diff() {
 					if (!(line1.compare(line2)))
 					{ //the lines are the same
 						offset++;
+						linesEquals.push_back(offset);
 					} else {
 						diff = true;
 						break;
@@ -199,6 +202,7 @@ void Comparador::backTrack(vector<string> original, vector<string> copia, int i,
 	} else if (original[i-1]==copia[j-1]) {
 		backTrack(original, copia, i-1, j-1);
 		lcs.push_back(original[i-1]);
+		linesEquals.push_back(i+offset);
 		return;
 	} else {
 		if( matrix[i][j-1] > matrix[i-1][j] ) {
