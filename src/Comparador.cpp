@@ -75,7 +75,6 @@ void Comparador::menuPrincipal() {
 
 				calcLCS(vecOrig,vecCopia);
 				backTrack(vecOrig, vecCopia, vecOrig.size(), vecCopia.size());
-				cout<<lcs.size()<<endl;
 				print_diff(vecOrig, vecCopia, vecOrig.size(), vecCopia.size());
 
 				change->setEqualOffset(lcs, offset, linesEquals);
